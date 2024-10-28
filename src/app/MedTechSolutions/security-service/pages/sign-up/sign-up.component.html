@@ -1,0 +1,85 @@
+<div class="container">
+  <div class="sign-up-content" *ngIf="!isLoading"> <!-- Oculta el contenido cuando se muestra el loader -->
+    <div class="form-section">
+      <div class="sign-up-card">
+        <h2>Sign Up</h2>
+
+        <!-- Role Selection using Buttons -->
+        <div class="button-toggle-group">
+          <button type="button" (click)="doctorSelected()" [class.active]="getRole() === 1">DOCTOR</button>
+          <button type="button" (click)="patientSelected()" [class.active]="getRole() === 2">PATIENT</button>
+        </div>
+
+        <!-- Form Inputs -->
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input type="text" id="email" [(ngModel)]="email" placeholder="Enter your email" required>
+        </div>
+
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" [(ngModel)]="password" placeholder="Enter your password" required>
+        </div>
+
+        <div class="input-group">
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" [(ngModel)]="firstName" placeholder="Enter your first name" required>
+        </div>
+
+        <div class="input-group">
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName" [(ngModel)]="lastName" placeholder="Enter your last name" required>
+        </div>
+
+        <div class="input-group">
+          <label for="phone">Phone Number</label>
+          <input type="text" id="phone" [(ngModel)]="phoneNumber" placeholder="Enter your phone number" required>
+        </div>
+
+        <!-- Doctor Role Specific Fields -->
+        <div *ngIf="getRole() === 1">
+          <div class="input-group">
+            <label for="licenceNumber">License Number</label>
+            <input type="text" id="licenceNumber" [(ngModel)]="licenceNumber" placeholder="Enter your licence number" required>
+          </div>
+          <div class="input-group">
+            <label for="specialities">Speciality</label>
+            <input type="text" id="specialities" [(ngModel)]="specialities" placeholder="Enter your speciality" required>
+          </div>
+        </div>
+
+        <!-- Patient Role Specific Fields -->
+        <div *ngIf="getRole() === 2">
+          <div class="input-group">
+            <label for="age">Age</label>
+            <input type="text" id="age" [(ngModel)]="age" placeholder="Enter your age" required>
+          </div>
+          <div class="input-group">
+            <label for="address">Address</label>
+            <input type="text" id="address" [(ngModel)]="address" placeholder="Enter your address" required>
+          </div>
+        </div>
+
+        <!-- Error Message -->
+        <div class="error" *ngIf="loginError">{{ loginError }}</div>
+
+        <!-- Submit Button -->
+        <button (click)="onSubmit()" class="sign-up-button">Sign Up</button>
+      </div>
+    </div>
+
+    <div class="welcome-section">
+      <h2>Welcome to MedSystem!</h2>
+      <p>Already have an account?</p>
+      <a routerLink="/sign-in" class="log-in-button">Log In</a>
+    </div>
+  </div>
+
+  <!-- Loader -->
+  <div class="loader" *ngIf="isLoading">
+    <div id="loader1"></div>
+    <div id="loader2"></div>
+    <div id="loader3"></div>
+    <span>Loading...</span>
+  </div>
+</div>
