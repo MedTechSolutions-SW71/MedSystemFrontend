@@ -13,38 +13,61 @@
         <!-- Form Inputs -->
         <div class="input-group">
           <label for="email">Email</label>
-          <input type="text" id="email" [(ngModel)]="email" placeholder="Enter your email" required>
+          <input type="text" id="email" [(ngModel)]="email" #emailModel="ngModel" placeholder="Enter your email" required>
+          <div class="error" *ngIf="emailModel.invalid && emailModel.touched">The field email is required</div>
         </div>
 
         <div class="input-group">
           <label for="password">Password</label>
-          <input type="password" id="password" [(ngModel)]="password" placeholder="Enter your password" required>
+          <input type="password" id="password" [(ngModel)]="password" #passwordModel="ngModel" placeholder="Enter your password" required>
+          <div class="error" *ngIf="passwordModel.invalid && passwordModel.touched">The field password is required</div>
         </div>
 
         <div class="input-group">
           <label for="firstName">First Name</label>
-          <input type="text" id="firstName" [(ngModel)]="firstName" placeholder="Enter your first name" required>
+          <input type="text" id="firstName" [(ngModel)]="firstName" #firstNameModel="ngModel" placeholder="Enter your first name" required>
+          <div class="error" *ngIf="firstNameModel.invalid && firstNameModel.touched">The field first name is required</div>
         </div>
 
         <div class="input-group">
           <label for="lastName">Last Name</label>
-          <input type="text" id="lastName" [(ngModel)]="lastName" placeholder="Enter your last name" required>
+          <input type="text" id="lastName" [(ngModel)]="lastName" #lastNameModel="ngModel" placeholder="Enter your last name" required>
+          <div class="error" *ngIf="lastNameModel.invalid && lastNameModel.touched">The field last name is required</div>
         </div>
 
         <div class="input-group">
           <label for="phone">Phone Number</label>
-          <input type="text" id="phone" [(ngModel)]="phoneNumber" placeholder="Enter your phone number" required>
+          <input type="text" id="phone" [(ngModel)]="phoneNumber" #phoneModel="ngModel" placeholder="Enter your phone number" required>
+          <div class="error" *ngIf="phoneModel.invalid && phoneModel.touched">The field phone number is required</div>
         </div>
+
 
         <!-- Doctor Role Specific Fields -->
         <div *ngIf="getRole() === 1">
           <div class="input-group">
             <label for="licenceNumber">License Number</label>
-            <input type="text" id="licenceNumber" [(ngModel)]="licenceNumber" placeholder="Enter your licence number" required>
+            <input type="text" id="licenceNumber" [(ngModel)]="licenceNumber" #licenceModel="ngModel" placeholder="Enter your licence number" required>
+            <div class="error" *ngIf="licenceModel.invalid && licenceModel.touched">The field licence number is required</div>
           </div>
           <div class="input-group">
             <label for="specialities">Speciality</label>
-            <input type="text" id="specialities" [(ngModel)]="specialities" placeholder="Enter your speciality" required>
+            <select id="specialities" [(ngModel)]="specialities" required class="speciality-select">
+              <option value="" disabled selected hidden>Select a speciality</option>
+              <option value="CARDIOLOGY">Cardiology</option>
+              <option value="DERMATOLOGY">Dermatology</option>
+              <option value="ENDOCRINOLOGY">Endocrinology</option>
+              <option value="GASTROENTEROLOGY">Gastroenterology</option>
+              <option value="GYNECOLOGY">Gynecology</option>
+              <option value="HEMATOLOGY">Hematology</option>
+              <option value="NEUROLOGY">Neurology</option>
+              <option value="OPHTHALMOLOGY">Ophthalmology</option>
+              <option value="OTOLARYNGOLOGY">Otolaryngology</option>
+              <option value="PEDIATRICS">Pediatrics</option>
+              <option value="PSYCHIATRY">Psychiatry</option>
+              <option value="PULMONOLOGY">Pulmonology</option>
+              <option value="RHEUMATOLOGY">Rheumatology</option>
+              <option value="UROLOGY">Urology</option>
+            </select>
           </div>
         </div>
 
@@ -52,11 +75,13 @@
         <div *ngIf="getRole() === 2">
           <div class="input-group">
             <label for="age">Age</label>
-            <input type="text" id="age" [(ngModel)]="age" placeholder="Enter your age" required>
+            <input type="text" id="age" [(ngModel)]="age" #ageModel="ngModel" placeholder="Enter your age" required>
+            <div class="error" *ngIf="ageModel.invalid && ageModel.touched">The field age is required</div>
           </div>
           <div class="input-group">
             <label for="address">Address</label>
-            <input type="text" id="address" [(ngModel)]="address" placeholder="Enter your address" required>
+            <input type="text" id="address" [(ngModel)]="address" #addressModel="ngModel" placeholder="Enter your address" required>
+            <div class="error" *ngIf="addressModel.invalid && addressModel.touched">The field address is required</div>
           </div>
         </div>
 

@@ -31,9 +31,8 @@ export class SignUpComponent extends BaseFormComponent implements OnInit {
   isLoading = false;
 
 
-  constructor(private builder: FormBuilder,
-              private authenticationService: AuthenticationService,
-              private router: Router,
+
+  constructor(private authenticationService: AuthenticationService,
               private doctorService: DoctorService,
               private patientService: PatientService) {
     super();
