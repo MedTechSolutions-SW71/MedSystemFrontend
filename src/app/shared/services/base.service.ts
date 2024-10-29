@@ -3,9 +3,9 @@ import {catchError, Observable, retry, throwError} from "rxjs";
 import {environment} from "../../../environments/environment";
 
 export class BaseService<T> {
-
   profilePath: string = `${environment.profilesPath}`;
   userPath: string = `${environment.userPath}`;
+  appointmentPath: string = `${environment.appointmentsPath}`;
   resourceEndpoint: string = '/resources';
 
   httpOptions = {
@@ -29,33 +29,59 @@ export class BaseService<T> {
     return throwError(() => new Error('Something happened with request, please try again later'));
   }
 
-
-  getUser(): Observable<T[]> {
-    return this.http.get<T[]>(this.userResourcePath(), this.httpOptions)
-      .pipe(retry(2), catchError(this.handleError));
-  }
-
+  // Create Resource
 
   createProfile(item: any): Observable<T> {
     return this.http.post<T>(this.profileResourcePath(), JSON.stringify(item), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
 
+  createAppointment(item: any): Observable<T> {
+    return this.http.post<T>(this.appointmentResourcePath(), JSON.stringify(item), this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+
+  // Delete Resource
+
+  deleteProfiles(id: any) {
+    return this.http.delete(`${this.profileResourcePath()}/${id}`, this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+
+  deleteAppointment(id: any) {
+    return this.http.delete(`${this.appointmentResourcePath()}/${id}`, this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+
+  // Update Resource
+
+  updateAppointment(id: any, item: any): Observable<T> {
+    return this.http.put<T>(`${this.appointmentResourcePath()}/${id}`, JSON.stringify(item), this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+
+   updateProfile(id: any, item: any): Observable<T> {
+    return this.http.put<T>(`${this.profileResourcePath()}/${id}`, JSON.stringify(item), this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+
+  // Get Resources
+
+   getUser(): Observable<T[]> {
+    return this.http.get<T[]>(this.userResourcePath(), this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
 
   getProfiles(): Observable<T[]> {
     return this.http.get<T[]>(this.profileResourcePath(), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
 
-  updateProfile(id: any, item: any): Observable<T> {
-    return this.http.put<T>(`${this.profileResourcePath()}/${id}`, JSON.stringify(item), this.httpOptions)
+  getAppointments(): Observable<T[]> {
+    return this.http.get<T[]>(this.appointmentResourcePath(), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
 
-  deleteProfiles(id: any) {
-    return this.http.delete(`${this.profileResourcePath()}/${id}`, this.httpOptions)
-      .pipe(retry(2), catchError(this.handleError));
-  }
 
   private userResourcePath(): string {
     return `${this.userPath}${this.resourceEndpoint}`;
@@ -63,6 +89,10 @@ export class BaseService<T> {
 
   private profileResourcePath(): string {
     return `${this.profilePath}${this.resourceEndpoint}`;
+  }
+
+   private appointmentResourcePath(): string {
+    return `${this.appointmentPath}${this.resourceEndpoint}`;
   }
 
 }

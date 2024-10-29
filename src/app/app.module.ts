@@ -14,6 +14,9 @@ import {MatIcon} from '@angular/material/icon';
 import {provideHttpClient} from '@angular/common/http';
 import {MatAnchor, MatIconButton} from "@angular/material/button";
 import { HomeComponent } from './public/pages/home/home.component';
+import {AppointmentsDoctorComponent} from './MedTechSolutions/appointments-service/pages/doctor/appointments-doctor.component';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatCellDef, MatHeaderCellDef, MatRowDef, MatTable} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,8 @@ import { HomeComponent } from './public/pages/home/home.component';
     ChatComponent,
     SignInComponent,
     SignUpComponent,
-    HomeComponent
+    HomeComponent,
+    AppointmentsDoctorComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +36,12 @@ import { HomeComponent } from './public/pages/home/home.component';
     MatToolbarModule,
     MatIcon,
     MatAnchor,
-    MatIconButton
+    MatIconButton,
+    MatPaginator,
+    MatRowDef,
+    MatHeaderCellDef,
+    MatTable,
+    MatCellDef
   ],
   providers: [
     provideHttpClient(),

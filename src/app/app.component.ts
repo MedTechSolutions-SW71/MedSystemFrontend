@@ -10,6 +10,10 @@ import {MatSidenav} from '@angular/material/sidenav';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  isSignedIn: boolean = false;
+  username: string = "";
+  userId: number = -1;
+  userRole: string = '';
 
   // Título del toolbar
   title = 'MedTechSolutions';
@@ -36,6 +40,15 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.isSignedIn$ = this.authenticationService.isSignedIn;
   }
+
+  getName(){
+    this.authenticationService.currentUsername.subscribe(username => this.username = username);
+    console.log(this.username);
+  }
+  getId(){
+    this.authenticationService.currentUserId.subscribe(id => this.userId = id);
+  }
+
 
   // Método para seleccionar una opción (si deseas manejar la opción seleccionada)
   selectOption(path: string) {

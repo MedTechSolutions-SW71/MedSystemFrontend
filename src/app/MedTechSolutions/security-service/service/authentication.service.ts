@@ -18,6 +18,8 @@ export class AuthenticationService {
   private signedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private signedInUserId: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   private signedInUsername: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  private signedInRole: BehaviorSubject<string> = new BehaviorSubject<string>('');
+
 
   constructor(private router: Router, private http: HttpClient) { }
 
@@ -32,6 +34,8 @@ export class AuthenticationService {
   get currentUserId() { return this.signedInUserId.asObservable(); }
 
   get currentUsername() { return this.signedInUsername.asObservable(); }
+
+  get currentRoles() { return this.signedInRole.asObservable(); }
 
   signUp(signUpRequest: SignUpRequest): Promise<void> {
     return new Promise((resolve, reject) => {
