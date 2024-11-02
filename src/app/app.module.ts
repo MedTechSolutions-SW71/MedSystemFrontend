@@ -16,7 +16,16 @@ import {MatAnchor, MatIconButton} from "@angular/material/button";
 import { HomeComponent } from './public/pages/home/home.component';
 import {AppointmentsDoctorComponent} from './MedTechSolutions/appointments-service/pages/doctor/appointments-doctor.component';
 import {MatPaginator} from '@angular/material/paginator';
-import {MatCellDef, MatHeaderCellDef, MatRowDef, MatTable} from '@angular/material/table';
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatRow,
+  MatRowDef,
+  MatTable
+} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -41,7 +50,14 @@ import {MatCellDef, MatHeaderCellDef, MatRowDef, MatTable} from '@angular/materi
     MatRowDef,
     MatHeaderCellDef,
     MatTable,
-    MatCellDef
+    MatCellDef,
+    MatHeaderCell,
+    MatColumnDef,
+    MatCell,
+    MatSort,
+    MatHeaderRow,
+    MatRow,
+    MatHeaderRowDef
   ],
   providers: [
     provideHttpClient(),

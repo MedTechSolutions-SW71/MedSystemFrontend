@@ -35,7 +35,7 @@ export class AuthenticationService {
 
   get currentUsername() { return this.signedInUsername.asObservable(); }
 
-  get currentRoles() { return this.signedInRole.asObservable(); }
+  get currentRole() { return this.signedInRole.asObservable(); }
 
   signUp(signUpRequest: SignUpRequest): Promise<void> {
     return new Promise((resolve, reject) => {
@@ -67,7 +67,8 @@ export class AuthenticationService {
     this.router.navigate(['/sign-in']).then();
   }
 
-  verification(token: string, email: string, role: string) {
+  verification(token: string, email: string, role: string, id: number) {
+    localStorage.setItem('id', String(id));
     localStorage.setItem('email', email);
     localStorage.setItem('token', token);
     localStorage.setItem('role', role);
@@ -75,5 +76,13 @@ export class AuthenticationService {
     this.signedIn.next(true);
 
     this.router.navigate(['/home']);
+  }
+
+  getRole() {
+    return localStorage.getItem('role');
+  }
+
+  getId() {
+    return localStorage.getItem('id');
   }
 }

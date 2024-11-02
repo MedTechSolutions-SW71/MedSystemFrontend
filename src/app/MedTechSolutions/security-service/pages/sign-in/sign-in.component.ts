@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {BaseFormComponent} from '../../../../shared/component/base-form.component';
 import {SignInRequest} from '../../model/sign-in.request';
 import {Router} from "@angular/router";
+import {OptionsService} from '../../../../public/services/options.service';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class SignInComponent extends BaseFormComponent implements OnInit {
 
 
 
-  constructor(private builder: FormBuilder, private authenticationService: AuthenticationService, private router: Router) {
+  constructor(private builder: FormBuilder, private authenticationService: AuthenticationService, private router: Router, private optionsService: OptionsService) {
     super();
   }
 
@@ -54,17 +55,20 @@ export class SignInComponent extends BaseFormComponent implements OnInit {
 
     this.authenticationService.signIn(signInRequest).subscribe({
       next: (response) => {
+        localStorage.setItem('id', String(response.id));
         localStorage.setItem('email', response.username);
         localStorage.setItem('role', response.role);
-        // Guardamos el token en el localStorage y redirigimos a la aplicación principal
-        this.authenticationService.verification(response.token, response.username, response.role);  // Aquí se actualiza el estado de autenticación
+
+        this.authenticationService.verification(response.token, response.username, response.role, response.id);
+        this.optionsService.requestUpdateOptions();
         console.log('Respuesta del servidor:', response);
+        console.log('ID guardado en localStorage:', response.id);
         console.log('Email guardado en localStorage:', response.username);
         console.log('Token guardado en localStorage:', response.token);
         console.log('Roles guardados en localStorage:', response.role);
       },
       error: (err) => {
-        // Si hay un error, mostramos un mensaje de error
+
         console.error('Error durante el login:', err);
         this.loginError = 'Invalid email or password. Please try again';
       }

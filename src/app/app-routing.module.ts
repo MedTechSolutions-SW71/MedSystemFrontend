@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'home', component: HomeComponent, canActivate: [authenticationGuard] },
-  { path: 'appointments', component: AppointmentsDoctorComponent },
+  { path: 'doctor/:id/appointments', component: AppointmentsDoctorComponent, canActivate: [authenticationGuard] },
   { path: 'chat/:userId', component: ChatComponent, canActivate: [authenticationGuard] },
   { path: '', redirectTo: 'sign-in', pathMatch: 'full' }
 

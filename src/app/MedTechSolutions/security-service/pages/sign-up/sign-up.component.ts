@@ -8,6 +8,7 @@ import {DoctorService} from "../../../profiles-service/services/doctor.service";
 import {PatientService} from "../../../profiles-service/services/patient.service";
 import {Doctor} from "../../../profiles-service/model/doctor";
 import {Patient} from "../../../profiles-service/model/patient";
+import {jsDocComment} from '@angular/compiler';
 
 @Component({
   selector: 'app-sign-up',
@@ -78,6 +79,7 @@ export class SignUpComponent extends BaseFormComponent implements OnInit {
     if (this.getRole() === 1) {
       let specialities = this.specialities;
       let licenceNumber = this.licenceNumber;
+      console.log("a: ",specialities);
       this.updateDoctor(new Doctor(this.userID, firstName, lastName, parseInt(licenceNumber), specialities, phone, email));
     } else if (this.getRole() === 2) {
       let age = this.age;
@@ -109,6 +111,7 @@ export class SignUpComponent extends BaseFormComponent implements OnInit {
       phone: doctor.phone,
       email: doctor.email,
     }
+    console.log("ab: ", doctor.specialities);
     this.doctorService.updateProfile(this.userID, newDoctor).subscribe(
       response => console.log('Item created successfully:', response),
       error => console.error('Error creating item:', error)

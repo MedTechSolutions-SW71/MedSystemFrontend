@@ -4,11 +4,11 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {Appointment} from '../../model/appointment';
 import {AppointmentsService} from '../../services/appointments.service';
-import {forkJoin} from "rxjs";
 import {DoctorService} from '../../../profiles-service/services/doctor.service';
 import {Doctor} from '../../../profiles-service/model/doctor';
 import {Patient} from '../../../profiles-service/model/patient';
 import {PatientService} from '../../../profiles-service/services/patient.service';
+import {AuthenticationService} from '../../../security-service/service/authentication.service';
 
 @Component({
   selector: 'app-appointments',
@@ -18,79 +18,76 @@ import {PatientService} from '../../../profiles-service/services/patient.service
 export class AppointmentsDoctorComponent implements OnInit, AfterViewInit {
 
   // Attributes
-  doctors: Doctor[] = [];
-  patients: Patient[] = [];
-  appointmentData: Appointment;
+  doctors: Doctor;
+  patients: Patient;
   dataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['doctor', 'patient', 'date', 'reason', 'speciality'];
+  doctorId: string | null = "";
+  patientId: string | null = "";
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false}) sort!: MatSort;
   isEditMode: boolean;
-  constructor(private appointmentsService: AppointmentsService, private doctorService: DoctorService, private patientService: PatientService) {
-    this.appointmentData = {} as Appointment;
+  constructor(private appointmentsService: AppointmentsService, private doctorService: DoctorService, private patientService: PatientService, private authenticationService: AuthenticationService) {
     this.dataSource = new MatTableDataSource<any>();
     this.isEditMode = false;
+    this.doctors = {} as Doctor;
+    this.patients = {} as Patient;
   }
 
-  // Private methods
-  private resetEditState() {
-    this.isEditMode = false;
-    this.appointmentData = {} as Appointment;
-  }
 
-  // CRUD Actions
-
-  private getAllAppointments() {
-    // Ejecutar todas las solicitudes al mismo tiempo
-    forkJoin({
-      appointments: this.appointmentsService.getAppointments(),
-      doctors: this.doctorService.getProfiles(),
-      patients: this.patientService.getProfiles()
-    }).subscribe(({ appointments, doctors, patients }) => {
+ private getAllAppointments() {
+  this.doctorId = this.authenticationService.getId() ? this.authenticationService.getId() : "";
+  if (this.doctorId != null) {
+    this.appointmentsService.getByOtherId(parseInt(this.doctorId), "doctorId").subscribe(appointments => {
       console.log('Citas obtenidas:', appointments);
-      console.log('Doctores obtenidos:', doctors);
-      console.log('Pacientes obtenidos:', patients);
 
-      // Verificar que los datos no estén vacíos
       if (!appointments.length) {
         console.error('No se encontraron citas');
       }
-      if (!doctors.length) {
-        console.error('No se encontraron doctores');
-      }
-      if (!patients.length) {
-        console.error('No se encontraron pacientes');
-      }
 
-      // Asignar correctamente los doctores y pacientes a las variables locales
-      this.doctors = doctors;
-      this.patients = patients;
-      console.log('Doctores:', this.doctors);
-
-      console.log('prueba: ', this.doctors.find(d => d.id = appointments[0].doctorId));
-
-      // Mapear las citas
       this.dataSource.data = appointments.map((appointment: any) => {
-        const doctor = this.doctors.find(d => d.id == +appointment.doctorId);
-        const patient = this.patients.find(p => p.id == +appointment.patientId);
-
-        if (!doctor) {
-          console.error(`Doctor con ID ${appointment.doctorId} no encontrado`);
-        }
-        if (!patient) {
-          console.error(`Paciente con ID ${appointment.patientId} no encontrado`);
-        }
-
         return {
           ...appointment,
-          doctorName: doctor ? `${doctor.firstName} ${doctor.lastName}` : 'Unknown Doctor',
-          patientName: patient ? `${patient.firstName} ${patient.lastName}` : 'Unknown Patient'
+          doctorName: '',
+          patientName: ''
         };
+      });
+
+      if (this.doctorId != null) {
+        this.doctorService.getProfileById(parseInt(this.doctorId)).subscribe(doctors => {
+          this.doctors = doctors;
+          console.log('Doctores obtenidos:', doctors);
+
+          this.dataSource.data = this.dataSource.data.map((appointment: any) => {
+            return {
+              ...appointment,
+              doctorName: `${this.doctors.firstName} ${this.doctors.lastName}`
+            };
+          });
+        });
+      }
+
+      appointments.forEach((appointment: Appointment) => {
+        this.patientService.getProfileById(appointment.patientId).subscribe(patients => {
+          this.patients = patients;
+          console.log('Pacientes obtenidos:', patients);
+
+          this.dataSource.data = this.dataSource.data.map((appt: any) => {
+            if (appt.patientId === appointment.patientId) {
+              return {
+                ...appt,
+                patientName: `${patients.firstName} ${patients.lastName}`
+              };
+            }
+            return appt;
+          });
+        });
       });
     }, error => {
       console.error('Error al obtener datos:', error);
     });
   }
+}
 
   /*
     private addAppointment() {
