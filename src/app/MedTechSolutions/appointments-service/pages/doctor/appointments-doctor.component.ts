@@ -35,7 +35,7 @@ export class AppointmentsDoctorComponent implements OnInit, AfterViewInit {
   }
 
 
- private getAllAppointments() {
+ private getDoctorAppointments() {
   this.doctorId = this.authenticationService.getId() ? this.authenticationService.getId() : "";
   if (this.doctorId != null) {
     this.appointmentsService.getByOtherId(parseInt(this.doctorId), "doctorId").subscribe(appointments => {
@@ -130,7 +130,7 @@ export class AppointmentsDoctorComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.getAllAppointments();
+    this.getDoctorAppointments();
   }
 
 }

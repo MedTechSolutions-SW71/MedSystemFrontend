@@ -6,12 +6,16 @@ import {SignUpComponent} from './MedTechSolutions/security-service/pages/sign-up
 import {authenticationGuard} from './MedTechSolutions/security-service/service/authentication.guard';
 import {HomeComponent} from './public/pages/home/home.component';
 import {AppointmentsDoctorComponent} from './MedTechSolutions/appointments-service/pages/doctor/appointments-doctor.component';
+import {
+  AppointmentsPatientComponent
+} from './MedTechSolutions/appointments-service/pages/patients/appointments-patient.component';
 
 const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'home', component: HomeComponent, canActivate: [authenticationGuard] },
   { path: 'doctor/:id/appointments', component: AppointmentsDoctorComponent, canActivate: [authenticationGuard] },
+  { path: 'patient/:id/appointments', component: AppointmentsPatientComponent, canActivate: [authenticationGuard] },
   { path: 'chat/:userId', component: ChatComponent, canActivate: [authenticationGuard] },
   { path: '', redirectTo: 'sign-in', pathMatch: 'full' }
 

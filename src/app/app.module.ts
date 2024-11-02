@@ -26,6 +26,9 @@ import {
   MatTable
 } from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
+import {
+  AppointmentsPatientComponent
+} from './MedTechSolutions/appointments-service/pages/patients/appointments-patient.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,8 @@ import {MatSort} from '@angular/material/sort';
     SignInComponent,
     SignUpComponent,
     HomeComponent,
-    AppointmentsDoctorComponent
+    AppointmentsDoctorComponent,
+    AppointmentsPatientComponent
   ],
   imports: [
     BrowserModule,

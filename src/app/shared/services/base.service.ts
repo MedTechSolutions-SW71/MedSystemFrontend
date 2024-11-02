@@ -1,5 +1,5 @@
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
-import {catchError, Observable, retry, throwError} from "rxjs";
+import {catchError, Observable, retry, tap, throwError} from "rxjs";
 import {environment} from "../../../environments/environment";
 
 export class BaseService<T> {
@@ -49,9 +49,16 @@ export class BaseService<T> {
   }
 
   deleteAppointment(id: any) {
-    return this.http.delete(`${this.appointmentResourcePath()}/${id}`, this.httpOptions)
-      .pipe(retry(2), catchError(this.handleError));
+    return this.http.delete(`${this.appointmentResourcePath()}/${id}`, { responseType: 'text' }).pipe(
+      tap(response => console.log('Respuesta de eliminación:', response)),
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error en la solicitud de eliminación:', error);
+        return throwError(() => new Error('Something happened with request, please try again later'));
+      })
+    );
   }
+
+
 
   // Update Resource
 
