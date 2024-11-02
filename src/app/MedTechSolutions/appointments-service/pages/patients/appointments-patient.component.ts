@@ -1,4 +1,4 @@
-  import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+  import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
   import {MatTableDataSource} from "@angular/material/table";
   import {MatPaginator} from "@angular/material/paginator";
   import {MatSort} from "@angular/material/sort";
@@ -9,6 +9,7 @@
   import {Patient} from '../../../profiles-service/model/patient';
   import {PatientService} from '../../../profiles-service/services/patient.service';
   import {AuthenticationService} from '../../../security-service/service/authentication.service';
+  import {Router} from '@angular/router';
 
   @Component({
     selector: 'app-appointments',
@@ -25,10 +26,11 @@
     doctorId: string | null = "";
     patientId: string | null = "";
     appointmentData: Appointment;
+
     @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
     @ViewChild(MatSort, { static: false}) sort!: MatSort;
     isEditMode: boolean;
-    constructor(private cdr: ChangeDetectorRef, private appointmentsService: AppointmentsService, private doctorService: DoctorService, private patientService: PatientService, private authenticationService: AuthenticationService) {
+    constructor(private router: Router ,private appointmentsService: AppointmentsService, private doctorService: DoctorService, private patientService: PatientService, private authenticationService: AuthenticationService) {
       this.dataSource = new MatTableDataSource<any>();
       this.isEditMode = false;
       this.doctors = {} as Doctor;
@@ -64,7 +66,7 @@
             this.dataSource.data = this.dataSource.data.map((appointment: any) => {
               return {
                 ...appointment,
-                doctorName: `${this.patients.firstName} ${this.patients.lastName}`
+                patientName: `${this.patients.firstName} ${this.patients.lastName}`
               };
             });
           });
@@ -79,7 +81,7 @@
               if (appt.doctorId === appointment.doctorId) {
                 return {
                   ...appt,
-                  patientName: `${doctors.firstName} ${doctors.lastName}`
+                  doctorName: `${doctors.firstName} ${doctors.lastName}`
                 };
               }
               return appt;
@@ -91,42 +93,6 @@
       });
     }
   }
-
-    /*
-      private addAppointment() {
-        this.appointmentData.id = 0;
-        this.appointmentsService.create(this.appointmentData).subscribe((response: any) => {
-          this.dataSource.data.push({...response});
-          this.dataSource.data = this.dataSource.data.map((s: Appointment) => { return s;});
-        });
-      }
-
-      private updateAppointment() {
-        let appointment = this.appointmentData;
-        this.appointmentsService.update(appointment.id, appointment).subscribe((response: any) => {
-          this.dataSource.data = this.dataSource.data.map((s: Appointment) => {
-            if (s.id === response.id) {
-              s = response;
-            }
-            return s;
-          });
-        });
-      }
-
-      private de(id: number) {
-        console.log('Deleting appointment with ID:', id);  // Verifica el ID
-        this.appointmentsService.delete(id).subscribe(() => {
-          this.dataSource.data = this.dataSource.data.filter((s: Appointment) => s.id !== id);
-        });
-      }
-
-      private deleteAppointment(id: number) {
-        // Eliminar el elemento en memoria, ya que no puedes modificar un JSON local
-        this.dataSource.data = this.dataSource.data.filter((appointment: Appointment) => appointment.id !== id);
-      } */
-
-    // Component Lifecycle Event Handlers
-
     ngAfterViewInit(): void {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -137,16 +103,8 @@
     }
 
     onAddAppointment() {
-      // Lógica para agregar una nueva cita
-      console.log('Agregar cita clickeado');
-      // Puedes agregar lógica para navegar a un formulario de creación de cita o mostrar un modal.
+      this.router.navigate(['/add-appointment']);
     }
-
-    private resetEditState() {
-      this.isEditMode = false;
-      this.appointmentData = {} as Appointment;
-    }
-
 
     private deleteAppointment(id: number) {
       this.appointmentsService.deleteAppointment(id).subscribe(() => {
@@ -156,16 +114,6 @@
         console.error('Error al eliminar la cita:', error); // Imprime todo el objeto de error
         alert('Error al eliminar la cita. Por favor, inténtalo de nuevo.');
       });
-    }
-
-    onEditItem(element: Appointment) {
-      this.appointmentData = element;
-      this.isEditMode = true;
-    }
-
-    onCancelEdit() {
-      this.isEditMode = false;
-      this.getPatientAppointments();
     }
 
     onDeleteItem(element: Appointment) {
