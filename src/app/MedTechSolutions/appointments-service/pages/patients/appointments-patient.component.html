@@ -1,0 +1,51 @@
+<!-- Data Table -->
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+  <!-- Columnas -->
+  <ng-container matColumnDef="doctor">
+    <th mat-header-cell *matHeaderCellDef> Doctor </th>
+    <td mat-cell *matCellDef="let element"> {{element.doctorName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="patient">
+    <th mat-header-cell *matHeaderCellDef> Patient </th>
+    <td mat-cell *matCellDef="let element"> {{element.patientName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="date">
+    <th mat-header-cell *matHeaderCellDef> Date </th>
+    <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="reason">
+    <th mat-header-cell *matHeaderCellDef> Reason </th>
+    <td mat-cell *matCellDef="let element"> {{element.reason}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="speciality">
+    <th mat-header-cell *matHeaderCellDef> Speciality </th>
+    <td mat-cell *matCellDef="let element"> {{element.speciality}} </td>
+  </ng-container>
+  <ng-container matColumnDef="actions">
+   <th mat-header-cell *matHeaderCellDef> Actions </th>
+   <td mat-cell *matCellDef="let element">
+     <a (click)="onDeleteItem(element)" href="javascript:void(0)">
+       <mat-icon>delete</mat-icon>
+     </a>
+   </td>
+ </ng-container>
+
+
+  <!-- Filas -->
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+
+<!-- Paginador -->
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+<!-- Botón para agregar una cita -->
+<div style="text-align: right; margin-top: 15px;">
+  <button style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;" (click)="onAddAppointment()">
+    Add Appointment
+  </button>
+</div>
