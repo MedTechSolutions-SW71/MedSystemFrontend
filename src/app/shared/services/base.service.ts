@@ -77,11 +77,20 @@ export class BaseService<T> {
       .pipe(retry(2), catchError(this.handleError));
   }
 
+  getProfileById(id: number): Observable<T> {
+    return this.http.get<T>(`${this.profileResourcePath()}/${id}`, this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+
   getAppointments(): Observable<T[]> {
     return this.http.get<T[]>(this.appointmentResourcePath(), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
 
+  getByOtherId(id: number, idType: string): Observable<T[]> {
+    return this.http.get<T[]>(`${this.appointmentResourcePath()}/${idType}/${id}`, this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
 
   private userResourcePath(): string {
     return `${this.userPath}${this.resourceEndpoint}`;
