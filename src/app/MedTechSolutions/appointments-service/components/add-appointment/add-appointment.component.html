@@ -1,0 +1,114 @@
+<div id="stepper-container">
+  <mat-stepper [linear]="isLinear" #stepper>
+    <!-- Primer paso: Detalles de la cita -->
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Appointment Details</ng-template>
+
+        <div>
+          <label for="reason">Reason:</label>
+          <input id="reason" type="text" formControlName="reason" placeholder="Enter reason" required>
+        </div>
+
+        <div>
+          <label for="speciality">Speciality:</label>
+          <select id="speciality" formControlName="speciality" required>
+            <option value="" disabled selected>Select a speciality</option>
+            <option value="CARDIOLOGY">Cardiology</option>
+            <option value="DERMATOLOGY">Dermatology</option>
+            <option value="ENDOCRINOLOGY">Endocrinology</option>
+            <option value="GASTROENTEROLOGY">Gastroenterology</option>
+            <option value="GYNECOLOGY">Gynecology</option>
+            <option value="HEMATOLOGY">Hematology</option>
+            <option value="NEUROLOGY">Neurology</option>
+            <option value="OPHTHALMOLOGY">Ophthalmology</option>
+            <option value="OTOLARYNGOLOGY">Otolaryngology</option>
+            <option value="PEDIATRICS">Pediatrics</option>
+            <option value="PSYCHIATRY">Psychiatry</option>
+            <option value="PULMONOLOGY">Pulmonology</option>
+            <option value="RHEUMATOLOGY">Rheumatology</option>
+            <option value="UROLOGY">Urology</option>
+          </select>
+        </div>
+
+        <div style="margin-top: 10px;">
+          <button type="button" (click)="stepper.next()">Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- Segundo paso: Selección de doctor -->
+    <mat-step [stepControl]="secondFormGroup" label="Choose your doctor">
+      <form [formGroup]="secondFormGroup">
+        <div>
+          <label for="doctor">Choose a doctor:</label>
+
+          <select id="doctor" formControlName="doctor" required>
+            <option value="" disabled selected>Select a doctor</option>
+            <option *ngFor="let doctor of filteredDoctors" [value]="doctor.id">
+              {{ doctor.firstName }} {{ doctor.lastName }}
+            </option>
+          </select>
+
+        </div>
+
+        <div style="margin-top: 10px;">
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- Tercer paso: Selección de fecha y hora -->
+    <mat-step [stepControl]="thirdFormGroup">
+      <form [formGroup]="thirdFormGroup">
+        <ng-template matStepLabel>Select Date and Time</ng-template>
+
+        <div class="calendar-container">
+          <label for="calendar">Choose a date:</label>
+          <mat-calendar class="custom-calendar"
+                        (selectedChange)="onDateSelected($event)"
+                        [selected]="selectedDate"
+                        [dateClass]="dateClass">
+          </mat-calendar>
+        </div>
+
+        <div style="margin-top: 20px; text-align: center;">
+          <label for="time">Choose a time:</label>
+          <select id="time" formControlName="time" required>
+            <option value="" disabled selected>Select a time</option>
+            <option *ngFor="let time of availableTimes" [value]="time">{{ time }}</option>
+          </select>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button type="button" (click)="stepper.next()">Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+
+    <!-- Cuarto paso: Resumen de la cita -->
+    <mat-step>
+      <ng-template matStepLabel>Review and Confirm</ng-template>
+      <p>Review the information below before submitting:</p>
+
+      <div style="margin-bottom: 20px;">
+        <p><strong>Reason:</strong> {{ firstFormGroup.get('reason')?.value }}</p>
+        <p><strong>Speciality:</strong> {{ firstFormGroup.get('speciality')?.value }}</p>
+        <p><strong>Doctor:</strong> {{ selectedDoctorFirstName }} {{ selectedDoctorLastName }}</p>
+        <p><strong>Date:</strong> {{ thirdFormGroup.get('date')?.value }}</p>
+        <p><strong>Time:</strong> {{ thirdFormGroup.get('time')?.value }}</p>
+      </div>
+
+      <div style="text-align: center; margin-top: 20px;">
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button type="button" (click)="createAppointment()">Submit Appointment</button>
+      </div>
+    </mat-step>
+  </mat-stepper>
+
+  <!-- Botón para volver a la lista de citas -->
+  <button mat-button (click)="goBack()">Back to Appointments</button>
+</div>

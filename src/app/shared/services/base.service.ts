@@ -99,6 +99,11 @@ export class BaseService<T> {
       .pipe(retry(2), catchError(this.handleError));
   }
 
+  getBySpecialty(speciality: string): Observable<T[]> {
+    return this.http.get<T[]>(`${this.profileResourcePath()}/speciality/${speciality}`, this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+
   private userResourcePath(): string {
     return `${this.userPath}${this.resourceEndpoint}`;
   }

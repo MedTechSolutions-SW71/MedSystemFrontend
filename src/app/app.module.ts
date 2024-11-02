@@ -12,7 +12,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {MatIcon} from '@angular/material/icon';
 import {provideHttpClient} from '@angular/common/http';
-import {MatAnchor, MatIconButton} from "@angular/material/button";
+import {MatAnchor, MatButton, MatIconButton} from "@angular/material/button";
 import { HomeComponent } from './public/pages/home/home.component';
 import {AppointmentsDoctorComponent} from './MedTechSolutions/appointments-service/pages/doctor/appointments-doctor.component';
 import {MatPaginator} from '@angular/material/paginator';
@@ -29,6 +29,12 @@ import {MatSort} from '@angular/material/sort';
 import {
   AppointmentsPatientComponent
 } from './MedTechSolutions/appointments-service/pages/patients/appointments-patient.component';
+import { AddAppointmentComponent } from './MedTechSolutions/appointments-service/components/add-appointment/add-appointment.component';
+import {MatStep, MatStepLabel, MatStepper, MatStepperNext, MatStepperPrevious} from '@angular/material/stepper';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatInput, MatInputModule} from '@angular/material/input';
+import {MatDatepicker, MatDatepickerInput, MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -38,7 +44,8 @@ import {
     SignUpComponent,
     HomeComponent,
     AppointmentsDoctorComponent,
-    AppointmentsPatientComponent
+    AppointmentsPatientComponent,
+    AddAppointmentComponent
   ],
   imports: [
     BrowserModule,
@@ -61,11 +68,29 @@ import {
     MatSort,
     MatHeaderRow,
     MatRow,
-    MatHeaderRowDef
+    MatHeaderRowDef,
+    MatStepper,
+    MatStep,
+    MatLabel,
+    MatFormField,
+    MatStepLabel,
+    MatButton,
+    MatInput,
+    MatStepperNext,
+    MatStepperPrevious,
+    MatDatepickerInput,
+    MatDatepicker,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatInputModule
   ],
   providers: [
     provideHttpClient(),
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   bootstrap: [AppComponent]
 })
