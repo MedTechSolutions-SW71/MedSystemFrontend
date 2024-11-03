@@ -1,0 +1,76 @@
+<div id="stepper-container">
+  <mat-stepper [linear]="isLinear" #stepper>
+
+    <!-- Primer paso: Detalles del examen -->
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Exam Details</ng-template>
+
+        <!-- Selección del Paciente -->
+        <div>
+          <label for="patient">Select Patient:</label>
+          <select id="patient" formControlName="patientId" required>
+            <option value="" disabled selected>Select a patient</option>
+            <option *ngFor="let patient of patients" [value]="patient.id">
+              {{ patient.firstName }} {{ patient.lastName }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Selección del Tipo de Examen -->
+        <div>
+          <label for="examType">Exam Type:</label>
+          <select id="examType" formControlName="examType" required>
+            <option value="" disabled selected>Select exam type</option>
+            <option *ngFor="let examType of examTypes" [value]="examType">{{ examType }}</option>
+          </select>
+        </div>
+
+        <div style="margin-top: 10px;">
+          <button type="button" class="btn-next" (click)="stepper.next()" [disabled]="!firstFormGroup.valid">Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- Segundo paso: Selección de fecha del examen -->
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Select Exam Date</ng-template>
+
+        <div class="calendar-container">
+          <label for="examDate">Choose a date:</label>
+          <mat-calendar class="custom-calendar"
+                        (selectedChange)="onDateSelected($event)"
+                        (selectedChange)="onDateSelected($event)" formControlName="examDate">
+          </mat-calendar>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+          <button type="button" class="btn-back" matStepperPrevious>Back</button>
+          <button type="button" class="btn-next" (click)="stepper.next()" [disabled]="!secondFormGroup.valid">Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+
+    <!-- Tercer paso: Confirmación de los detalles del examen -->
+    <mat-step>
+      <ng-template matStepLabel>Review and Confirm</ng-template>
+      <p>Review the information below before submitting:</p>
+
+      <div style="margin-bottom: 20px;">
+        <p><strong>Patient:</strong> {{ firstFormGroup.get('patientId')?.value }}</p>
+        <p><strong>Exam Type:</strong> {{ firstFormGroup.get('examType')?.value }}</p>
+        <p><strong>Exam Date:</strong> {{ secondFormGroup.get('examDate')?.value }}</p>
+      </div>
+
+      <div style="text-align: center; margin-top: 20px;">
+        <button type="button" class="btn-backA" matStepperPrevious>Cancel</button>
+        <button type="button" class="btn-submit" (click)="createExam()">Submit Appointment</button>
+      </div>
+    </mat-step>
+  </mat-stepper>
+
+  <!-- Botón para volver a la lista de exámenes -->
+  <button type="button" class="btn-backA" (click)="goBack()">Back to Appointments</button>
+</div>

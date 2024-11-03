@@ -1,0 +1,75 @@
+<div class="main-container">
+  <div class="content-wrapper">
+    <!-- Loading Spinner -->
+    <div *ngIf="loading" class="loading-spinner">
+      Loading...
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="alert alert-error">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Treatments Section -->
+    <div class="card treatments-card">
+      <h2>My Treatments</h2>
+      <div class="treatments-grid">
+        <div *ngFor="let treatment of treatments"
+             class="treatment-item"
+             [class.selected]="selectedTreatment === treatment"
+             (click)="selectTreatment(treatment)">
+          <h3>{{ treatment.treatmentName }}</h3>
+          <p class="description">{{ treatment.description }}</p>
+          <p class="period"><strong>Period:</strong> {{ treatment.period }}</p>
+        </div>
+        <div *ngIf="treatments.length === 0 && !loading" class="no-data">
+          No treatments found.
+        </div>
+      </div>
+    </div>
+
+    <!-- Treatment Details -->
+    <div class="card details-card" *ngIf="selectedTreatment">
+      <h2>Treatment Details</h2>
+      <div class="treatment-details">
+        <h3>{{ selectedTreatment.treatmentName }}</h3>
+        <p>{{ selectedTreatment.description }}</p>
+
+        <!-- Results Section -->
+        <div class="results-section">
+          <h4>Treatment Results</h4>
+          <div class="results-list">
+            <div *ngFor="let result of getTreatmentResults(selectedTreatment.id)"
+                 class="result-item">
+              <span class="result-type">{{ result.typeOfExam }}</span>
+              <span class="result-date">{{ result.resultDateTime }}</span>
+              <span class="result-status" [class.positive]="result.result">
+                {{ result.result ? 'Positive' : 'Negative' }}
+              </span>
+            </div>
+            <div *ngIf="getTreatmentResults(selectedTreatment.id).length === 0" class="no-data">
+              No results available for this treatment.
+            </div>
+          </div>
+        </div>
+
+        <!-- Reports Section -->
+        <div class="reports-section">
+          <h4>Progress Reports</h4>
+          <div class="reports-list">
+            <div *ngFor="let report of getTreatmentReports(selectedTreatment.id)"
+                 class="report-item">
+              <div class="report-header">
+                <span class="report-date">{{ report.date }}</span>
+              </div>
+              <p class="report-reason">{{ report.reason }}</p>
+            </div>
+            <div *ngIf="getTreatmentReports(selectedTreatment.id).length === 0" class="no-data">
+              No reports available for this treatment.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
