@@ -39,6 +39,7 @@ import {ExamsDoctorComponent} from './MedTechSolutions/exams-service/pages/docto
 import {AddExamComponent} from './MedTechSolutions/exams-service/components/add-exam/add-exam.component';
 import {UpdateExamComponent} from './MedTechSolutions/exams-service/components/update-exam/update-exam.component';
 import {ExamsLaboratoryComponent} from './MedTechSolutions/exams-service/pages/laboratory/exams-laboratory.component';
+import { ExamsPatientComponent } from './MedTechSolutions/exams-service/pages/patient/exams-patient.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import {ExamsLaboratoryComponent} from './MedTechSolutions/exams-service/pages/l
     ExamsDoctorComponent,
     AddExamComponent,
     ExamsLaboratoryComponent,
-    UpdateExamComponent
+    UpdateExamComponent,
+    ExamsPatientComponent
   ],
   imports: [
     BrowserModule,

@@ -119,6 +119,11 @@ export class BaseService<T> {
       .pipe(retry(2), catchError(this.handleError));
   }
 
+  getExamByPatientId(id: number, idType: string): Observable<T[]> {
+    return this.http.get<T[]>(`${this.examResourcePath()}/${idType}/${id}`, this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+
   getExams(): Observable<T[]> {
     return this.http.get<T[]>(this.examResourcePath(), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
