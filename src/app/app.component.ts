@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   @ViewChild('sidenav') sidenav!: MatSidenav;
 
   options = [
-    { path: '/home', title: 'Home', icon: 'home' },
+    { path: '/home', title: 'Home', icon: 'home'},
   ];
   selectedOption: string = '/home';
   isSignedIn$!: Observable<boolean>;
@@ -52,7 +52,7 @@ export class AppComponent implements OnInit {
           { path: `/doctor/${userIdForPath}/appointments`, title: 'Appointments', icon: 'calendar_today' },
           { path: `/doctor/${userIdForPath}/treatments-doctor`, title: 'Treatments for patients', icon: 'assignment' },
           { path: `/doctor/${userIdForPath}/request-history`, title: 'Request History', icon: 'history' },
-          { path: `/doctor/${userIdForPath}/request-results`, title: 'Request Results', icon: 'swap_vertical_circle' },
+          { path: `/doctor/${userIdForPath}/exams`, title: 'Exams', icon: 'swap_vertical_circle' },
         ];
     } else if (this.userRole === 'Patient') {
       this.id = this.authenticationService.getId()
@@ -61,7 +61,7 @@ export class AppComponent implements OnInit {
           { path: '/home', title: 'Home', icon: 'home' },
           { path: `/patient/${userIdForPath}/appointments`, title: 'Appointments', icon: 'calendar_today' },
           { path: `/patient/${userIdForPath}/treatments-patient`, title: 'Treatments for patients', icon: 'assignment' },
-          { path: `/patient/${userIdForPath}/request-results`, title: 'Request Results', icon: 'swap_vertical_circle' },
+          { path: `/patient/${userIdForPath}/exams`, title: 'Exams', icon: 'swap_vertical_circle' },
         ];
     }
   }

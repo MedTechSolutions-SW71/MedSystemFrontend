@@ -12,6 +12,8 @@ import {
 import {
   AddAppointmentComponent
 } from './MedTechSolutions/appointments-service/components/add-appointment/add-appointment.component';
+import {ExamsDoctorComponent} from './MedTechSolutions/exams-service/pages/doctor/exams-doctor.component';
+import {AddExamComponent} from './MedTechSolutions/exams-service/components/add-exam/add-exam.component';
 
 const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
@@ -20,6 +22,8 @@ const routes: Routes = [
   { path: 'doctor/:id/appointments', component: AppointmentsDoctorComponent, canActivate: [authenticationGuard] },
   { path: 'patient/:id/appointments', component: AppointmentsPatientComponent, canActivate: [authenticationGuard] },
   { path: 'add-appointment', component: AddAppointmentComponent, canActivate: [authenticationGuard] },
+  {path: 'add-exam', component: AddExamComponent, canActivate: [authenticationGuard]},
+  { path: 'doctor/:id/exams', component: ExamsDoctorComponent, canActivate: [authenticationGuard]},
   { path: 'chat/:userId', component: ChatComponent, canActivate: [authenticationGuard] },
   { path: '', redirectTo: 'sign-in', pathMatch: 'full' }
 

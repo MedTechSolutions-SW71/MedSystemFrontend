@@ -6,6 +6,7 @@ export class BaseService<T> {
   profilePath: string = `${environment.profilesPath}`;
   userPath: string = `${environment.userPath}`;
   appointmentPath: string = `${environment.appointmentsPath}`;
+  examsPath: string = `${environment.examsPath}`;
   resourceEndpoint: string = '/resources';
 
   httpOptions = {
@@ -104,6 +105,16 @@ export class BaseService<T> {
       .pipe(retry(2), catchError(this.handleError));
   }
 
+  getExamByDoctorId(id: number, idType: string): Observable<T[]> {
+    return this.http.get<T[]>(`${this.examResourcePath()}/${idType}/${id}`, this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+
+  createExam(item: any): Observable<T> {
+    return this.http.post<T>(this.examResourcePath(), JSON.stringify(item), this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+
   private userResourcePath(): string {
     return `${this.userPath}${this.resourceEndpoint}`;
   }
@@ -114,6 +125,10 @@ export class BaseService<T> {
 
    private appointmentResourcePath(): string {
     return `${this.appointmentPath}${this.resourceEndpoint}`;
+  }
+
+  private examResourcePath(): string {
+    return `${this.examsPath}${this.resourceEndpoint}`;
   }
 
 }

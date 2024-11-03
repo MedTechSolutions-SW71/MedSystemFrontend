@@ -35,6 +35,9 @@ import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput, MatInputModule} from '@angular/material/input';
 import {MatDatepicker, MatDatepickerInput, MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import {ExamsDoctorComponent} from './MedTechSolutions/exams-service/pages/doctor/exams-doctor.component';
+import {AddExamComponent} from './MedTechSolutions/exams-service/components/add-exam/add-exam.component';
+
 
 @NgModule({
   declarations: [
@@ -45,7 +48,9 @@ import {MatNativeDateModule} from '@angular/material/core';
     HomeComponent,
     AppointmentsDoctorComponent,
     AppointmentsPatientComponent,
-    AddAppointmentComponent
+    AddAppointmentComponent,
+    ExamsDoctorComponent,
+    AddExamComponent
   ],
   imports: [
     BrowserModule,
