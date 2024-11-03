@@ -1,0 +1,19 @@
+<div class="update-container">
+  <h2>Update Appointment</h2>
+  <form (ngSubmit)="onSubmit()" #updateForm="ngForm">
+    <!-- Calendario de Angular Material -->
+    <div class="calendar-container">
+      <label for="calendar">Choose a date:</label>
+      <mat-calendar class="custom-calendar"
+                    (selectedChange)="onDateSelected($event)"
+                    [(selected)]="date">
+      </mat-calendar>
+    </div>
+
+    <!-- Botones de acción -->
+    <div class="button-container">
+      <button type="submit" class="btn-submit" [disabled]="!date">Update</button>
+      <button type="button" class="btn-back" (click)="goBack()">Back</button>
+    </div>
+  </form>
+</div>

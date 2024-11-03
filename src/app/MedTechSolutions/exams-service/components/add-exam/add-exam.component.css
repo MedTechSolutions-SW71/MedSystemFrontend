@@ -1,0 +1,130 @@
+/* Estilos generales para la página y el contenedor */
+#stepper-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input[type="text"], select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+mat-stepper {
+  background-color: white;
+  border-radius: 8px;
+  padding: 15px;
+}
+
+mat-step {
+  margin-bottom: 20px;
+}
+
+#doctor {
+  margin-top: 5px;
+}
+
+.custom-calendar {
+  transform: scale(1);
+  transform-origin: top left;
+}
+
+.calendar-container {
+  width: 250px;
+  overflow: hidden;
+}
+
+.selected-date {
+  background-color: #3f51b5;
+  color: white;
+  border-radius: 50%;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-submit {
+  background-color: #4CAF50;
+  color: white;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.btn-submit:hover {
+  background-color: #45a049;
+  box-shadow: 0 4px 15px rgba(0, 128, 0, 0.3);
+}
+
+.btn-backA {
+  background-color: #f44336;
+  color: white;
+}
+
+.btn-backA:hover {
+  background-color: #d32f2f;
+  box-shadow: 0 4px 15px rgba(211, 47, 47, 0.3);
+}
+
+.btn-submit:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.button-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.btn-next {
+  background-color: #3f51b5;
+  color: white;
+  margin-right: 10px;
+}
+
+.btn-next:hover {
+  background-color: #303f9f;
+}
+
+.btn-next:disabled:hover {
+  background-color: #ccc;
+  box-shadow: none;
+}
+
+.btn-back {
+  background-color: #3f51b5;
+  color: white;
+  margin-right: 10px;
+}
+
+.btn-back:hover {
+  background-color: #303f9f;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+

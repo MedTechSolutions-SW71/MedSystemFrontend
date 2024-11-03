@@ -15,7 +15,36 @@ import {provideHttpClient} from '@angular/common/http';
 import {MatAnchor, MatIconButton} from "@angular/material/button";
 import {PatientTreatmentsComponent} from './MedTechSolutions/treatment-service/pages/patient-treatments/patient-treatments.component';
 import {DoctorTreatmentsComponent} from './MedTechSolutions/treatment-service/pages/doctor-treatments/doctor-treatments.component';
+import {MatAnchor, MatButton, MatIconButton} from "@angular/material/button";
 import { HomeComponent } from './public/pages/home/home.component';
+import {AppointmentsDoctorComponent} from './MedTechSolutions/appointments-service/pages/doctor/appointments-doctor.component';
+import {MatPaginator} from '@angular/material/paginator';
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatRow,
+  MatRowDef,
+  MatTable
+} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
+import {
+  AppointmentsPatientComponent
+} from './MedTechSolutions/appointments-service/pages/patients/appointments-patient.component';
+import { AddAppointmentComponent } from './MedTechSolutions/appointments-service/components/add-appointment/add-appointment.component';
+import {MatStep, MatStepLabel, MatStepper, MatStepperNext, MatStepperPrevious} from '@angular/material/stepper';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatInput, MatInputModule} from '@angular/material/input';
+import {MatDatepicker, MatDatepickerInput, MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {ExamsDoctorComponent} from './MedTechSolutions/exams-service/pages/doctor/exams-doctor.component';
+import {AddExamComponent} from './MedTechSolutions/exams-service/components/add-exam/add-exam.component';
+import {UpdateExamComponent} from './MedTechSolutions/exams-service/components/update-exam/update-exam.component';
+import {ExamsLaboratoryComponent} from './MedTechSolutions/exams-service/pages/laboratory/exams-laboratory.component';
+import { ExamsPatientComponent } from './MedTechSolutions/exams-service/pages/patient/exams-patient.component';
+import { UpdateAppointmentComponent } from './MedTechSolutions/appointments-service/components/update-appointment/update-appointment.component';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +54,16 @@ import { HomeComponent } from './public/pages/home/home.component';
     SignUpComponent,
     HomeComponent,
     PatientTreatmentsComponent,
-    DoctorTreatmentsComponent
+    DoctorTreatmentsComponent,
+    AppointmentsDoctorComponent,
+    AppointmentsPatientComponent,
+    AddAppointmentComponent,
+    ExamsDoctorComponent,
+    AddExamComponent,
+    ExamsLaboratoryComponent,
+    UpdateExamComponent,
+    ExamsPatientComponent,
+    UpdateAppointmentComponent
   ],
   imports: [
     BrowserModule,
@@ -36,11 +74,41 @@ import { HomeComponent } from './public/pages/home/home.component';
     MatToolbarModule,
     MatIcon,
     MatAnchor,
-    MatIconButton
+    MatIconButton,
+    MatPaginator,
+    MatRowDef,
+    MatHeaderCellDef,
+    MatTable,
+    MatCellDef,
+    MatHeaderCell,
+    MatColumnDef,
+    MatCell,
+    MatSort,
+    MatHeaderRow,
+    MatRow,
+    MatHeaderRowDef,
+    MatStepper,
+    MatStep,
+    MatLabel,
+    MatFormField,
+    MatStepLabel,
+    MatButton,
+    MatInput,
+    MatStepperNext,
+    MatStepperPrevious,
+    MatDatepickerInput,
+    MatDatepicker,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatInputModule
   ],
   providers: [
     provideHttpClient(),
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   bootstrap: [AppComponent]
 })

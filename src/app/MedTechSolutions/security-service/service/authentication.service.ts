@@ -18,6 +18,8 @@ export class AuthenticationService {
   private signedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private signedInUserId: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   private signedInUsername: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  private signedInRole: BehaviorSubject<string> = new BehaviorSubject<string>('');
+
 
   constructor(private router: Router, private http: HttpClient) { }
 
@@ -32,6 +34,8 @@ export class AuthenticationService {
   get currentUserId() { return this.signedInUserId.asObservable(); }
 
   get currentUsername() { return this.signedInUsername.asObservable(); }
+
+  get currentRole() { return this.signedInRole.asObservable(); }
 
   signUp(signUpRequest: SignUpRequest): Promise<void> {
     return new Promise((resolve, reject) => {
@@ -63,7 +67,8 @@ export class AuthenticationService {
     this.router.navigate(['/sign-in']).then();
   }
 
-  verification(token: string, email: string, role: string) {
+  verification(token: string, email: string, role: string, id: number) {
+    localStorage.setItem('id', String(id));
     localStorage.setItem('email', email);
     localStorage.setItem('token', token);
     localStorage.setItem('role', role);
@@ -71,5 +76,13 @@ export class AuthenticationService {
     this.signedIn.next(true);
 
     this.router.navigate(['/home']);
+  }
+
+  getRole() {
+    return localStorage.getItem('role');
+  }
+
+  getId() {
+    return localStorage.getItem('id');
   }
 }

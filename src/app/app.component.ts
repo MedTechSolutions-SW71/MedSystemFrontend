@@ -2,6 +2,7 @@ import {Component, OnInit,ViewChild} from '@angular/core';
 import {AuthenticationService} from './MedTechSolutions/security-service/service/authentication.service';
 import {Observable} from 'rxjs';
 import {MatSidenav} from '@angular/material/sidenav';
+import {OptionsService} from './public/services/options.service';
 
 
 @Component({
@@ -10,34 +11,68 @@ import {MatSidenav} from '@angular/material/sidenav';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-
-  // Título del toolbar
+  username: string = "";
+  id: string | null = "";
+  userRole: string | null = "";
   title = 'MedTechSolutions';
 
   @ViewChild('sidenav') sidenav!: MatSidenav;
 
-  // Opciones del menú (basadas en la imagen)
   options = [
-    { path: '/home', title: 'Home' },
-    { path: '/appointments', title: 'Appointments' },
-    { path: '/chat', title: 'Chat' },
-    { path: '/treatments', title: 'Treatments for patient' },
-    { path: '/history', title: 'Request history' },
-    { path: '/results', title: 'Request results' }
+    { path: '/home', title: 'Home', icon: 'home'},
   ];
-
-  // Opción seleccionada (puedes usar esto para marcar la opción seleccionada si lo necesitas)
-  selectedOption = '/home';
-
+  selectedOption: string = '/home';
   isSignedIn$!: Observable<boolean>;
 
-  constructor(private authenticationService: AuthenticationService) {}
+  constructor(
+    private authenticationService: AuthenticationService,
+    private optionsService: OptionsService
+  ) {}
 
   ngOnInit() {
     this.isSignedIn$ = this.authenticationService.isSignedIn;
+
+    this.optionsService.updateOptions$.subscribe(() => {
+      this.updateOptions();
+    });
   }
 
-  // Método para seleccionar una opción (si deseas manejar la opción seleccionada)
+  updateOptions() {
+
+    this.userRole = this.authenticationService.getRole();
+    console.log("role: " + this.userRole);
+
+    let userIdForPath: string | null = "";
+
+    if (this.userRole === 'Doctor') {
+      this.id = this.authenticationService.getId()
+        userIdForPath = this.id;
+        this.options = [
+          { path: '/home', title: 'Home', icon: 'home' },
+          { path: `/doctor/${userIdForPath}/appointments`, title: 'Appointments', icon: 'calendar_today' },
+          { path: `/doctor/${userIdForPath}/treatments-doctor`, title: 'Treatments for patients', icon: 'assignment' },
+          { path: `/doctor/${userIdForPath}/request-history`, title: 'Request History', icon: 'history' },
+          { path: `/doctor/${userIdForPath}/exams`, title: 'Exams', icon: 'swap_vertical_circle' },
+        ];
+    } else if (this.userRole === 'Patient') {
+      this.id = this.authenticationService.getId()
+      userIdForPath = this.id;
+      this.options = [
+        {path: '/home', title: 'Home', icon: 'home'},
+        {path: `/patient/${userIdForPath}/appointments`, title: 'Appointments', icon: 'calendar_today'},
+        {path: `/patient/${userIdForPath}/treatments-patient`, title: 'Treatments for patients', icon: 'assignment'},
+        {path: `/patient/${userIdForPath}/exams`, title: 'Exams', icon: 'swap_vertical_circle'},
+      ];
+    } else if (this.userRole === 'Laboratory') {
+      this.id = this.authenticationService.getId()
+      userIdForPath = this.id;
+      this.options = [
+        {path: '/home', title: 'Home', icon: 'home'},
+        {path: `/laboratory/${userIdForPath}/exams`, title: 'Exams', icon: 'swap_vertical_circle'},
+      ];
+    }
+  }
+
   selectOption(path: string) {
     this.selectedOption = path;
   }
@@ -45,5 +80,4 @@ export class AppComponent implements OnInit {
   logout() {
     this.authenticationService.signOut();
   }
-
 }
