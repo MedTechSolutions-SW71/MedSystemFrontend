@@ -49,9 +49,17 @@
         </div>
 
         <div class="form-group">
-          <label for="period">Period:</label>
-          <input id="period" type="text" formControlName="period">
-          <div *ngIf="treatmentForm.get('period')?.touched && treatmentForm.get('period')?.invalid" class="error-text">
+          <label for="startDate">Start Date:</label>
+          <input id="startDate" type="text" formControlName="startDate">
+          <div *ngIf="treatmentForm.get('startDate')?.touched && treatmentForm.get('startDate')?.invalid" class="error-text">
+            Period is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="endDate">End Date:</label>
+          <input id="endDate" type="text" formControlName="endDate">
+          <div *ngIf="treatmentForm.get('endDate')?.touched && treatmentForm.get('endDate')?.invalid" class="error-text">
             Period is required
           </div>
         </div>

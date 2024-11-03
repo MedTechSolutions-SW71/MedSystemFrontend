@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Treatment} from '../../models/treatment';
 import {TreatmentsService} from '../../services/treatments.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-doctor-treatments',
@@ -10,6 +11,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 
 export class DoctorTreatmentsComponent implements OnInit {
+  doctorId: number = 1;
   currentTreatments: Treatment[] = [];
   treatmentForm: FormGroup;
   showAddForm = false;
@@ -18,18 +20,23 @@ export class DoctorTreatmentsComponent implements OnInit {
 
   constructor(
     private treatmentsService: TreatmentsService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private route: ActivatedRoute
   ) {
     this.treatmentForm = this.fb.group({
       treatmentName: ['', Validators.required],
       description: ['', Validators.required],
-      period: ['', Validators.required],
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
       patientId: ['', [Validators.required, Validators.min(1)]]
     });
   }
 
   ngOnInit() {
     this.loadTreatments();
+    this.route.paramMap.subscribe(params => {
+      this.doctorId = Number(params.get('id')); // Captura el ID de la URL
+    });
   }
 
   loadTreatments() {
@@ -51,7 +58,8 @@ export class DoctorTreatmentsComponent implements OnInit {
         id: 0, // El backend asignará el ID real
         treatmentName: this.treatmentForm.get('treatmentName')?.value,
         description: this.treatmentForm.get('description')?.value,
-        period: this.treatmentForm.get('period')?.value,
+        startDate: this.treatmentForm.get('startDate')?.value,
+        endDate: this.treatmentForm.get('endDate')?.value,
         patientId: this.treatmentForm.get('patientId')?.value
       };
 
@@ -62,6 +70,7 @@ export class DoctorTreatmentsComponent implements OnInit {
           this.treatmentForm.reset();
           this.showAddForm = false;
           setTimeout(() => this.successMessage = '', 3000);
+          console.log('Treatment added:', response);
         },
         (error) => {
           this.errorMessage = 'Error adding treatment. Please try again.';

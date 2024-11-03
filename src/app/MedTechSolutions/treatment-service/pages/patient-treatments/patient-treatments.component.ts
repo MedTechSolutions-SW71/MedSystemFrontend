@@ -3,6 +3,7 @@ import {Result} from '../../models/result';
 import {Treatment} from '../../models/treatment';
 import {TreatmentsService} from '../../services/treatments.service';
 import {Report} from '../../models/report';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-patient-treatments',
@@ -18,10 +19,14 @@ export class PatientTreatmentsComponent implements OnInit {
   errorMessage: string = '';
   loading: boolean = false;
 
-  constructor(private treatmentsService: TreatmentsService) {}
+  constructor(private treatmentsService: TreatmentsService,
+              private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.loadPatientData();
+    this.route.paramMap.subscribe(params => {
+      this.patientId = Number(params.get('id')); // Captura el ID de la URL
+    });
   }
 
   loadPatientData() {
@@ -32,8 +37,17 @@ export class PatientTreatmentsComponent implements OnInit {
 
     // Carga de tratamientos
     treatmentsRequest.subscribe(
-      (treatments) => {
-        this.treatments = treatments;
+      (response) => {
+        console.log('Respuesta de treatmentsRequest:', response);
+
+        // Accede a la propiedad que contiene el array de tratamientos.
+        if (response && Array.isArray(response)) {
+          this.treatments = response;// Ajusta `treatments` según la propiedad real
+        } else {
+          this.treatments = []; // Asignación vacía si no se encuentra el array
+          console.error('La respuesta no contiene un array de tratamientos:', response);
+        }
+
         this.loading = false;
       },
       (error) => {
@@ -43,15 +57,9 @@ export class PatientTreatmentsComponent implements OnInit {
       }
     );
 
+
     // Carga de resultados
-    resultsRequest.subscribe(
-      (results) => {
-        this.results = results;
-      },
-      (error) => {
-        console.error('Error loading results:', error);
-      }
-    );
+
 
     // Carga de reportes
     reportsRequest.subscribe(

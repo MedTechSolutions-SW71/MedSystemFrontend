@@ -17,8 +17,8 @@ const routes: Routes = [
   { path: 'sign-up', component: SignUpComponent },
   { path: 'home', component: HomeComponent, canActivate: [authenticationGuard] },
   { path: 'chat/:userId', component: ChatComponent, canActivate: [authenticationGuard] },
-  { path: 'treatment/patientId/:patientId', component: PatientTreatmentsComponent, canActivate: [authenticationGuard] },
-  { path: 'results/doctorId/:doctorId', component: DoctorTreatmentsComponent, canActivate: [authenticationGuard] },
+  { path: 'patients/:id/treatments', component: PatientTreatmentsComponent },
+  { path: 'doctor/:id/treatments', component: DoctorTreatmentsComponent},
   { path: '', redirectTo: 'sign-in', pathMatch: 'full' }
 
 ];

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { BaseService } from '../../../shared/services/base.service';
 import { Treatment} from '../models/treatment';
 import { Result } from '../models/result';
 import { Report } from '../models/report';
 import {environment} from '../../../../environments/environment';
+import {catchError, Observable, pipe, tap, throwError} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -25,12 +26,18 @@ export class TreatmentsService {
     return this.http.post<Treatment>(this.treatmentsEndpoint, treatment);
   }
 
-  getTreatmentsByPatientId(patientId: number) {
+  getTreatmentsByPatientId(patientId: number): Observable<Treatment[]> {
     return this.http.get<Treatment[]>(`${this.treatmentsEndpoint}/patientId/${patientId}`);
   }
 
   deleteTreatmentByName(treatmentName: string) {
-    return this.http.delete(`${this.treatmentsEndpoint}/treatmentName/${treatmentName}`);
+    return this.http.delete(`${this.treatmentsEndpoint}/treatmentName/${treatmentName}`, { responseType: 'text' }).pipe(
+      tap(response => console.log('Respuesta de eliminación:', response)),
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error en la solicitud de eliminación:', error);
+        return throwError(() => new Error('Something happened with request, please try again later'));
+      })
+    );
   }
 
   // Métodos para Result

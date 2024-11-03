@@ -3,7 +3,9 @@ export class Treatment {
     public id: number,
     public treatmentName: string,
     public description: string,
-    public period: string,
-    public patientId: number
+    public patientId: number,
+    public startDate?: string,
+    public endDate?: string,
+    public period?: string
   ) {}
 }
