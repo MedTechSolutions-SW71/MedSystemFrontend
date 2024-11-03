@@ -82,6 +82,11 @@ export class BaseService<T> {
       .pipe(retry(2), catchError(this.handleError));
   }
 
+  updateAppointmentDate(id: any, item: any): Observable<T> {
+    return this.http.put<T>(`${this.appointmentResourcePath()}/${id}/date`, JSON.stringify(item), this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+
   // Get Resources
 
    getUser(): Observable<T[]> {

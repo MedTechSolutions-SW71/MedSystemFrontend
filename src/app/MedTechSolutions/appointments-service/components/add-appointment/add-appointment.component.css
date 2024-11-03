@@ -6,7 +6,6 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilos para los campos de formulario */
 form {
   display: flex;
   flex-direction: column;
@@ -27,34 +26,12 @@ input[type="text"], select {
   box-sizing: border-box;
 }
 
-/* Botones */
-button {
-  margin-top: 15px;
-  padding: 10px 20px;
-  background-color: #3f51b5;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #303f9f;
-}
-
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
 mat-stepper {
   background-color: white;
   border-radius: 8px;
   padding: 15px;
 }
 
-/* Ajustes de espacio y alineación */
 mat-step {
   margin-bottom: 20px;
 }
@@ -63,33 +40,91 @@ mat-step {
   margin-top: 5px;
 }
 
-.back-button {
-  margin-top: 20px;
-  background-color: #d32f2f;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.back-button:hover {
-  background-color: #b71c1c;
-}
 
 .custom-calendar {
-  transform: scale(1); /* Ajusta este valor para cambiar el tamaño (0.8 es 80% del tamaño original) */
-  transform-origin: top left; /* Asegura que la escala se aplique desde la esquina superior izquierda */
+  transform: scale(1);
+  transform-origin: top left;
 }
 
 .calendar-container {
-  width: 250px; /* Ajusta el ancho según sea necesario */
-  overflow: hidden; /* Asegura que no haya desbordamiento */
+  width: 250px;
+  overflow: hidden;
 }
 
 .selected-date {
-  background-color: #3f51b5; /* Color de fondo */
-  color: white; /* Color de texto */
-  border-radius: 50%; /* Hace que el fondo sea circular */
+  background-color: #3f51b5;
+  color: white;
+  border-radius: 50%;
 }
 
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-submit {
+  background-color: #4CAF50;
+  color: white;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.btn-submit:hover {
+  background-color: #45a049;
+  box-shadow: 0 4px 15px rgba(0, 128, 0, 0.3);
+}
+
+.btn-backA {
+  background-color: #f44336;
+  color: white;
+}
+
+.btn-backA:hover {
+  background-color: #d32f2f;
+  box-shadow: 0 4px 15px rgba(211, 47, 47, 0.3);
+}
+
+.btn-submit:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.button-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.btn-next {
+  background-color: #3f51b5;
+  color: white;
+  margin-right: 10px;
+}
+
+.btn-next:hover {
+  background-color: #303f9f;
+}
+
+.btn-next:disabled:hover {
+  background-color: #ccc;
+  box-shadow: none;
+}
+
+
+.btn-back {
+  background-color: #3f51b5;
+  color: white;
+  margin-right: 10px;
+}
+
+.btn-back:hover {
+  background-color: #303f9f;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

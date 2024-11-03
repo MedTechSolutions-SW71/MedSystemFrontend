@@ -64,7 +64,7 @@ export class AddAppointmentComponent implements OnInit {
 
 
   dateClass = (d: Date): string => {
-    if (!this.selectedDate) return ''; // Evita errores si `selectedDate` es `undefined`
+    if (!this.selectedDate) return '';
     const date = d.toISOString().split('T')[0];
     return date === this.selectedDate.toISOString().split('T')[0] ? 'selected-date' : '';
   }
@@ -106,7 +106,7 @@ export class AddAppointmentComponent implements OnInit {
 
 
   updateDoctorName(doctorId: string): void {
-    const doctor = this.filteredDoctors.find(d => d.id === +doctorId); // Convierte a número si es necesario
+    const doctor = this.filteredDoctors.find(d => d.id === +doctorId);
     if (doctor) {
       this.selectedDoctorFirstName = doctor.firstName;
       this.selectedDoctorLastName = doctor.lastName;
