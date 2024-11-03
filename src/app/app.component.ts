@@ -57,12 +57,19 @@ export class AppComponent implements OnInit {
     } else if (this.userRole === 'Patient') {
       this.id = this.authenticationService.getId()
       userIdForPath = this.id;
-        this.options = [
-          { path: '/home', title: 'Home', icon: 'home' },
-          { path: `/patient/${userIdForPath}/appointments`, title: 'Appointments', icon: 'calendar_today' },
-          { path: `/patient/${userIdForPath}/treatments-patient`, title: 'Treatments for patients', icon: 'assignment' },
-          { path: `/patient/${userIdForPath}/exams`, title: 'Exams', icon: 'swap_vertical_circle' },
-        ];
+      this.options = [
+        {path: '/home', title: 'Home', icon: 'home'},
+        {path: `/patient/${userIdForPath}/appointments`, title: 'Appointments', icon: 'calendar_today'},
+        {path: `/patient/${userIdForPath}/treatments-patient`, title: 'Treatments for patients', icon: 'assignment'},
+        {path: `/patient/${userIdForPath}/exams`, title: 'Exams', icon: 'swap_vertical_circle'},
+      ];
+    } else if (this.userRole === 'Laboratory') {
+      this.id = this.authenticationService.getId()
+      userIdForPath = this.id;
+      this.options = [
+        {path: '/home', title: 'Home', icon: 'home'},
+        {path: `/laboratory/${userIdForPath}/exams`, title: 'Exams', icon: 'swap_vertical_circle'},
+      ];
     }
   }
 

@@ -89,41 +89,6 @@ export class AppointmentsDoctorComponent implements OnInit, AfterViewInit {
   }
 }
 
-  /*
-    private addAppointment() {
-      this.appointmentData.id = 0;
-      this.appointmentsService.create(this.appointmentData).subscribe((response: any) => {
-        this.dataSource.data.push({...response});
-        this.dataSource.data = this.dataSource.data.map((s: Appointment) => { return s;});
-      });
-    }
-
-    private updateAppointment() {
-      let appointment = this.appointmentData;
-      this.appointmentsService.update(appointment.id, appointment).subscribe((response: any) => {
-        this.dataSource.data = this.dataSource.data.map((s: Appointment) => {
-          if (s.id === response.id) {
-            s = response;
-          }
-          return s;
-        });
-      });
-    }
-
-    private de(id: number) {
-      console.log('Deleting appointment with ID:', id);  // Verifica el ID
-      this.appointmentsService.delete(id).subscribe(() => {
-        this.dataSource.data = this.dataSource.data.filter((s: Appointment) => s.id !== id);
-      });
-    }
-
-    private deleteAppointment(id: number) {
-      // Eliminar el elemento en memoria, ya que no puedes modificar un JSON local
-      this.dataSource.data = this.dataSource.data.filter((appointment: Appointment) => appointment.id !== id);
-    } */
-
-  // Component Lifecycle Event Handlers
-
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

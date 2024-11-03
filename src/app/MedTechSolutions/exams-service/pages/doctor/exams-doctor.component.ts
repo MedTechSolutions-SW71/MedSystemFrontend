@@ -23,7 +23,7 @@ export class ExamsDoctorComponent implements OnInit, AfterViewInit {
   doctors: Doctor;
   patients: Patient;
   dataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['doctor', 'patient', 'examType', 'examDate', 'examResultDate', 'examResult'];
+  displayedColumns: string[] = ['doctor', 'patient', 'examType', 'examDate', 'examResultDate', 'examResultsReady'];
   doctorId: string | null = "";
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false}) sort!: MatSort;

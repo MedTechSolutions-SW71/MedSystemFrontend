@@ -32,9 +32,12 @@
   </ng-container>
 
   <!-- Exam Result Column -->
-  <ng-container matColumnDef="examResult">
-    <th mat-header-cell *matHeaderCellDef> Result </th>
-    <td mat-cell *matCellDef="let element"> {{element.examResult ? 'Positive' : 'Negative'}} </td>
+  <ng-container matColumnDef="examResultsReady">
+    <th mat-header-cell *matHeaderCellDef> Exam Result </th>
+    <td mat-cell *matCellDef="let element">
+      <span *ngIf="element.examResultsReady; else notPassed">✔️</span>
+      <ng-template #notPassed>❌</ng-template>
+    </td>
   </ng-container>
 
   <!-- Filas -->

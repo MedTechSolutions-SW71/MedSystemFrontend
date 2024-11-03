@@ -37,6 +37,8 @@ import {MatDatepicker, MatDatepickerInput, MatDatepickerModule} from '@angular/m
 import {MatNativeDateModule} from '@angular/material/core';
 import {ExamsDoctorComponent} from './MedTechSolutions/exams-service/pages/doctor/exams-doctor.component';
 import {AddExamComponent} from './MedTechSolutions/exams-service/components/add-exam/add-exam.component';
+import {UpdateExamComponent} from './MedTechSolutions/exams-service/components/update-exam/update-exam.component';
+import {ExamsLaboratoryComponent} from './MedTechSolutions/exams-service/pages/laboratory/exams-laboratory.component';
 
 
 @NgModule({
@@ -50,7 +52,9 @@ import {AddExamComponent} from './MedTechSolutions/exams-service/components/add-
     AppointmentsPatientComponent,
     AddAppointmentComponent,
     ExamsDoctorComponent,
-    AddExamComponent
+    AddExamComponent,
+    ExamsLaboratoryComponent,
+    UpdateExamComponent
   ],
   imports: [
     BrowserModule,
