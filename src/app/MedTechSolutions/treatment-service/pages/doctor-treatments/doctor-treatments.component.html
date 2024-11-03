@@ -1,0 +1,89 @@
+<div class="main-container">
+  <div class="content-wrapper">
+    <!-- Messages -->
+    <div *ngIf="errorMessage" class="alert alert-error">
+      {{ errorMessage }}
+    </div>
+    <div *ngIf="successMessage" class="alert alert-success">
+      {{ successMessage }}
+    </div>
+
+    <!-- Current Treatments Section -->
+    <div class="card treatments-card">
+      <h2>Current Treatments</h2>
+      <div class="treatments-grid">
+        <div *ngFor="let treatment of currentTreatments" class="treatment-item">
+          <h3>{{ treatment.treatmentName }}</h3>
+          <p><strong>Description:</strong> {{ treatment.description }}</p>
+          <p><strong>Period:</strong> {{ treatment.period }}</p>
+          <p><strong>Patient ID:</strong> {{ treatment.patientId }}</p>
+        </div>
+        <div *ngIf="currentTreatments.length === 0" class="no-data">
+          No treatments found.
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Treatment Section -->
+    <div class="card">
+      <h2>Add Treatment</h2>
+      <button class="btn-primary" (click)="toggleAddForm()">
+        {{ showAddForm ? 'Cancel' : 'Add New Treatment' }}
+      </button>
+
+      <form *ngIf="showAddForm" [formGroup]="treatmentForm" (ngSubmit)="onSubmit()" class="treatment-form">
+        <div class="form-group">
+          <label for="treatmentName">Treatment Name:</label>
+          <input id="treatmentName" type="text" formControlName="treatmentName">
+          <div *ngIf="treatmentForm.get('treatmentName')?.touched && treatmentForm.get('treatmentName')?.invalid" class="error-text">
+            Treatment name is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea id="description" formControlName="description"></textarea>
+          <div *ngIf="treatmentForm.get('description')?.touched && treatmentForm.get('description')?.invalid" class="error-text">
+            Description is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="period">Period:</label>
+          <input id="period" type="text" formControlName="period">
+          <div *ngIf="treatmentForm.get('period')?.touched && treatmentForm.get('period')?.invalid" class="error-text">
+            Period is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="patientId">Patient ID:</label>
+          <input id="patientId" type="number" formControlName="patientId">
+          <div *ngIf="treatmentForm.get('patientId')?.touched && treatmentForm.get('patientId')?.invalid" class="error-text">
+            Valid patient ID is required
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit" [disabled]="!treatmentForm.valid">
+          Add Treatment
+        </button>
+      </form>
+    </div>
+
+    <!-- Remove Treatment Section -->
+    <div class="card">
+      <h2>Remove Treatment</h2>
+      <div class="remove-treatment-list">
+        <div *ngFor="let treatment of currentTreatments" class="remove-treatment-item">
+          <span>{{ treatment.treatmentName }}</span>
+          <button class="btn-delete" (click)="deleteTreatment(treatment.treatmentName)">
+            Delete
+          </button>
+        </div>
+        <div *ngIf="currentTreatments.length === 0" class="no-data">
+          No treatments available to remove.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
