@@ -104,5 +104,13 @@ export class ExamsLaboratoryComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/update-exam', element.id]);
   }
 
+  isValidUrl(url: string): boolean {
+    try {
+      new URL(url);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
 
 }

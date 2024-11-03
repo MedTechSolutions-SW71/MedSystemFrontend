@@ -35,14 +35,15 @@
   <ng-container matColumnDef="examResultsUrl">
     <th mat-header-cell *matHeaderCellDef> Exam Result Url </th>
     <td mat-cell *matCellDef="let element">
-      <ng-container *ngIf="element.examResultsUrl; else noUrlIcon">
-        {{ element.examResultsUrl }}
+      <ng-container *ngIf="isValidUrl(element.examResultsUrl); else noUrlIcon">
+        <a [href]="element.examResultsUrl" target="_blank">{{ element.examResultsUrl }}</a>
       </ng-container>
       <ng-template #noUrlIcon>
-        <mat-icon aria-label="No URL set">link_off</mat-icon>
+        <mat-icon aria-label="No valid URL set">link_off</mat-icon>
       </ng-template>
     </td>
   </ng-container>
+
 
 
   <!-- Columna de Resultado de Examen -->
