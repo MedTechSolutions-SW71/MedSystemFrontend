@@ -15,10 +15,6 @@ import {provideHttpClient} from '@angular/common/http';
 import {MatAnchor, MatIconButton} from "@angular/material/button";
 import { HomeComponent } from './public/pages/home/home.component';
 
-import { DoctorTreatmentsComponent } from './MedTechSolutions/treatment-service/pages/doctor-treatments/doctor-treatments.component';
-import { PatientTreatmentsComponent } from './MedTechSolutions/treatment-service/pages/patient-treatments/patient-treatments.component';
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,8 +23,7 @@ import { PatientTreatmentsComponent } from './MedTechSolutions/treatment-service
     SignUpComponent,
     HomeComponent,
 
-    DoctorTreatmentsComponent,
-    PatientTreatmentsComponent,
+
   ],
   imports: [
     BrowserModule,
