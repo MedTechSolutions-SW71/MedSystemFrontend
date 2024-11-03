@@ -21,9 +21,7 @@ import { HomeComponent } from './public/pages/home/home.component';
     ChatComponent,
     SignInComponent,
     SignUpComponent,
-    HomeComponent,
-
-
+    HomeComponent
   ],
   imports: [
     BrowserModule,
