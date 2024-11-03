@@ -1,1 +1,42 @@
-<router-outlet></router-outlet>
+<mat-sidenav-container class="sidenav-container">
+  <!-- Sidenav (visible solo si el usuario está autenticado) -->
+  <mat-sidenav #sidenav mode="side" class="custom-sidenav" *ngIf="isSignedIn$ | async" [opened]="true">
+    <!-- Contenedor de la información del usuario -->
+    <div class="user-info">
+      <img src="https://static.vecteezy.com/system/resources/previews/030/504/836/large_2x/avatar-account-flat-isolated-on-transparent-background-for-graphic-and-web-design-default-social-media-profile-photo-symbol-profile-and-people-silhouette-user-icon-vector.jpg" alt="User avatar" class="profile-img">
+      <h3 class="user-name">{{ username }}</h3>
+    </div>
+
+    <!-- Opciones del menú de navegación generadas dinámicamente -->
+    <div class="nav-options">
+      <a mat-button
+         *ngFor="let option of options"
+         class="nav-link"
+         [class.selected]="selectedOption === option.path"
+         [routerLink]="option.path"
+         (click)="selectOption(option.path)">
+        <mat-icon *ngIf="option.icon">{{ option.icon }}</mat-icon>
+        {{ option.title }}
+      </a>
+    </div>
+
+    <!-- Botón de logout -->
+    <div class="logout">
+      <a mat-button class="logout-btn" (click)="logout()">LOGOUT</a>
+    </div>
+  </mat-sidenav>
+
+  <!-- Contenido principal -->
+  <mat-sidenav-content>
+    <!-- Toolbar superior -->
+    <mat-toolbar class="custom-toolbar" *ngIf="isSignedIn$ | async">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>{{ title }}</span>
+    </mat-toolbar>
+
+    <!-- Aquí se carga el contenido dinámicamente -->
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

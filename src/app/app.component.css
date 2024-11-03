@@ -1,0 +1,71 @@
+.sidenav-container {
+  height: 100vh;
+}
+
+.custom-sidenav {
+  width: 250px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Espacia la imagen arriba y el logout abajo */
+  padding: 20px 0;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.profile-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%; /* Hace la imagen redonda */
+  margin-bottom: 10px;
+}
+
+.user-name {
+  font-size: 16px;
+  color: black;
+  margin: 0;
+}
+
+.nav-options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1; /* Hace que este contenedor ocupe todo el espacio disponible */
+  justify-content: space-evenly; /* Espacia las opciones uniformemente */
+  padding: 10px 0; /* Añade un poco de espacio interno */
+}
+
+.nav-link {
+  width: 100%;
+  text-align: center;
+  color: black;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.selected {
+  background-color: rgba(22, 33, 62, 0.93); /* Color azul oscuro para la opción seleccionada */
+  color: white;
+  border-radius: 10px; /* Botón redondeado */
+}
+
+.logout {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.logout-btn {
+  color: red !important;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.custom-toolbar {
+  background-color: rgba(22, 33, 62, 0.93) !important; /* Color del toolbar */
+  color: white !important;
+}

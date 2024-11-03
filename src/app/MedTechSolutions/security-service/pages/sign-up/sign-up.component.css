@@ -1,0 +1,271 @@
+/* Estilos generales */
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+
+.sign-up-content {
+  display: flex;
+  width: 900px;
+  background-color: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+
+.form-section {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+}
+
+.sign-up-card {
+  width: 100%;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+
+.input-group label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+input::placeholder {
+  color: #999;
+}
+
+/* Estilos para botones de selección de roles */
+.button-toggle-group {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.button-toggle-group button {
+  padding: 10px;
+  flex: 1;
+  margin-right: 10px;
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.button-toggle-group button.active {
+  background-color: rgba(22, 33, 62, 0.93);
+  color: white;
+}
+
+.button-toggle-group button:last-child {
+  margin-right: 0;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+  min-height: 16px; /* Reserva espacio para el mensaje de error */
+}
+
+
+/* Transición suave para los campos específicos del rol */
+.role-fields {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.5s ease, max-height 0.5s ease;
+}
+
+.role-fields.visible {
+  opacity: 1;
+  max-height: 500px;
+}
+
+/* Botón de registro */
+.sign-up-button {
+  width: 100%;
+  padding: 10px;
+  background-color: rgba(22, 33, 62, 0.93);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sign-up-button:hover {
+  background-color: rgba(22, 33, 62, 0.8);
+}
+
+/* Welcome section con imagen de fondo */
+.welcome-section {
+  position: relative;
+  flex: 1;
+  background: url('../../../../../assets/images/fondo.jpg') no-repeat center center;
+  background-size: cover;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  text-align: center;
+  overflow: hidden;
+  transition: opacity 0.5s ease;
+}
+
+.welcome-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.welcome-section h2,
+.welcome-section p,
+.welcome-section .log-in-button {
+  position: relative;
+  z-index: 2;
+}
+
+.log-in-button {
+  padding: 10px 20px;
+  background-color: white;
+  color: rgba(22, 33, 62, 0.93);
+  border: none;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.input-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  background-color: #fff;
+  color: #999;
+}
+
+.speciality-select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #000;
+  background-color: #fff;
+}
+
+.speciality-select option[value=""] {
+  color: black;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+
+.log-in-button:hover {
+  background-color: #f8f9fa;
+}
+
+.sign-up-content {
+  display: flex;
+  width: 900px;
+  height: 90vh;
+  background-color: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 1000;
+
+
+  #loader1, #loader2, #loader3 {
+    width: 10px;
+    height: 10px;
+    margin: 5px;
+    border-radius: 50%;
+    background: #333;
+    animation: bounce 0.6s infinite alternate;
+  }
+
+  #loader2 {
+    animation-delay: 0.2s;
+  }
+
+  #loader3 {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes bounce {
+    to {
+      opacity: 0.3;
+      transform: translateY(-15px);
+    }
+  }
+}

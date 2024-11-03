@@ -1,0 +1,57 @@
+.update-container {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-submit {
+  background-color: #4CAF50;
+  color: white;
+  margin-right: 10px;
+}
+
+.btn-submit:hover {
+  background-color: #45a049;
+  box-shadow: 0 4px 15px rgba(0, 128, 0, 0.3);
+}
+
+.btn-back {
+  background-color: #f44336;
+  color: white;
+}
+
+.btn-back:hover {
+  background-color: #d32f2f;
+  box-shadow: 0 4px 15px rgba(211, 47, 47, 0.3);
+}
+
+.btn-submit:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.button-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+
