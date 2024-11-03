@@ -42,6 +42,11 @@ export class BaseService<T> {
       .pipe(retry(2), catchError(this.handleError));
   }
 
+  createExam(item: any): Observable<T> {
+    return this.http.post<T>(this.examResourcePath(), JSON.stringify(item), this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+
   // Delete Resource
 
   deleteProfiles(id: any) {
@@ -60,7 +65,6 @@ export class BaseService<T> {
   }
 
 
-
   // Update Resource
 
   updateAppointment(id: any, item: any): Observable<T> {
@@ -70,6 +74,11 @@ export class BaseService<T> {
 
    updateProfile(id: any, item: any): Observable<T> {
     return this.http.put<T>(`${this.profileResourcePath()}/${id}`, JSON.stringify(item), this.httpOptions)
+      .pipe(retry(2), catchError(this.handleError));
+  }
+
+  updateExam(id: any, item: any): Observable<T> {
+    return this.http.put<T>(`${this.examResourcePath()}/${id}/result`, JSON.stringify(item), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
 
@@ -110,8 +119,8 @@ export class BaseService<T> {
       .pipe(retry(2), catchError(this.handleError));
   }
 
-  createExam(item: any): Observable<T> {
-    return this.http.post<T>(this.examResourcePath(), JSON.stringify(item), this.httpOptions)
+  getExams(): Observable<T[]> {
+    return this.http.get<T[]>(this.examResourcePath(), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
 

@@ -1,0 +1,19 @@
+<div class="edit-container">
+  <h2>Update Exam Result</h2>
+  <form (ngSubmit)="onSubmit()" #editForm="ngForm">
+    <!-- Input para ingresar la URL -->
+    <div class="form-group">
+      <label for="examUrl">Enter URL</label>
+      <input type="url" id="examUrl" [(ngModel)]="examUrl" name="examUrl" required (input)="isValidUrl(examUrl)" placeholder="https://example.com">
+      <div *ngIf="!isValidUrl(examUrl) && examUrl" class="error-message">
+        Please enter a valid URL.
+      </div>
+    </div>
+
+    <!-- Botón de enviar -->
+    <button type="submit" class="btn-submit" [disabled]="!editForm.valid">Submit</button>
+  </form>
+  <button type="back" class="btn-back" (click)="goBack()">Back to Exams</button>
+</div>
+
+
