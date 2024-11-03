@@ -122,4 +122,9 @@
         this.deleteAppointment(element.id);
       }
     }
+
+    onEditItem(element: any): void {
+      this.router.navigate(['/update-appointment', element.id]);
+    }
+
   }

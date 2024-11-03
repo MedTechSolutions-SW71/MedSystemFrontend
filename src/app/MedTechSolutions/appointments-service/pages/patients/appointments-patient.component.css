@@ -10,3 +10,8 @@ table {
 tr.editable-row {
   background-color: lightblue;
 }
+
+.delete-icon {
+  color: red;
+}
+
