@@ -8,7 +8,6 @@ import {ExamsService} from '../../service/exams.service';
 import {DoctorService} from '../../../profiles-service/services/doctor.service';
 import {PatientService} from '../../../profiles-service/services/patient.service';
 import {AuthenticationService} from '../../../security-service/service/authentication.service';
-import {Router} from '@angular/router';
 import {Exam} from '../../model/exam';
 
 @Component({
@@ -29,8 +28,7 @@ export class ExamsPatientComponent  implements OnInit, AfterViewInit {
   constructor(private examsService: ExamsService,
               private doctorService: DoctorService,
               private patientService: PatientService,
-              private authenticationService: AuthenticationService,
-              private router: Router) {
+              private authenticationService: AuthenticationService) {
     this.dataSource = new MatTableDataSource<any>();
     this.doctors = {} as Doctor;
     this.patients = {} as Patient;

@@ -4,7 +4,6 @@ import {Patient} from '../../../profiles-service/model/patient';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import {AppointmentsService} from '../../../appointments-service/services/appointments.service';
 import {DoctorService} from '../../../profiles-service/services/doctor.service';
 import {PatientService} from '../../../profiles-service/services/patient.service';
 
@@ -19,9 +18,7 @@ import {ExamsService} from '../../service/exams.service';
 })
 export class ExamsLaboratoryComponent implements OnInit, AfterViewInit {
 
-  // Attributes
   isEditMode: boolean = false;
-  selectedItem: any = null;
   doctors: Doctor;
   patients: Patient;
   dataSource: MatTableDataSource<any>;
@@ -42,14 +39,14 @@ export class ExamsLaboratoryComponent implements OnInit, AfterViewInit {
 
 
  private getLaboratoryExams() {
-  this.examsService.getExams().subscribe(exams => { // Cambiar a `getAllExams` si existe este método.
+  this.examsService.getExams().subscribe(exams => {
     console.log('Exámenes obtenidos:', exams);
 
     if (!exams.length) {
       console.error('No se encontraron exámenes');
     }
 
-    // Cargar los datos directamente en `dataSource`.
+
     this.dataSource.data = exams.map((exam: any) => {
       return {
         ...exam,
@@ -58,7 +55,7 @@ export class ExamsLaboratoryComponent implements OnInit, AfterViewInit {
       };
     });
 
-    // Obtener nombres de doctores y pacientes para cada examen.
+
     exams.forEach((exam: Exam) => {
       this.doctorService.getProfileById(exam.doctorId).subscribe(doctor => {
         this.dataSource.data = this.dataSource.data.map((appt: any) => {
@@ -100,7 +97,6 @@ export class ExamsLaboratoryComponent implements OnInit, AfterViewInit {
   }
 
    onEditItem(element: any): void {
-    // Redirigir a la vista de actualización pasando el `examId` como parámetro de ruta
     this.router.navigate(['/update-exam', element.id]);
   }
 

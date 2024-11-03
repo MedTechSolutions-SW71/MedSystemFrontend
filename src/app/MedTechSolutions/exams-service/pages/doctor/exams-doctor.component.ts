@@ -89,7 +89,7 @@ export class ExamsDoctorComponent implements OnInit, AfterViewInit {
   }
 
   goToCreateExam(): void {
-    this.router.navigate(['/add-exam']); // Cambia la ruta según la configuración de tu enrutador
+    this.router.navigate(['/add-exam']);
   }
 
   ngAfterViewInit(): void {
