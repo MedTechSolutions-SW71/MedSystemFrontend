@@ -107,7 +107,7 @@ export class SignUpComponent extends BaseFormComponent implements OnInit {
       firstName: doctor.firstName,
       lastName: doctor.lastName,
       licenceNumber: doctor.licenceNumber,
-      specialties: doctor.specialities,
+      specialities: doctor.specialities,
       phone: doctor.phone,
       email: doctor.email,
     }
