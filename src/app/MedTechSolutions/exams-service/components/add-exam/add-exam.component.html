@@ -27,7 +27,7 @@
         </div>
 
         <div style="margin-top: 10px;">
-          <button type="button" mat-button (click)="stepper.next()">Next</button>
+          <button type="button" class="btn-next" (click)="stepper.next()" [disabled]="!firstFormGroup.valid">Next</button>
         </div>
       </form>
     </mat-step>
@@ -39,15 +39,19 @@
 
         <div class="calendar-container">
           <label for="examDate">Choose a date:</label>
-          <input id="examDate" type="date" formControlName="examDate" required>
+          <mat-calendar class="custom-calendar"
+                        (selectedChange)="onDateSelected($event)"
+                        (selectedChange)="onDateSelected($event)" formControlName="examDate">
+          </mat-calendar>
         </div>
 
         <div style="text-align: center; margin-top: 20px;">
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button type="button" (click)="stepper.next()">Next</button>
+          <button type="button" class="btn-back" matStepperPrevious>Back</button>
+          <button type="button" class="btn-next" (click)="stepper.next()" [disabled]="!secondFormGroup.valid">Next</button>
         </div>
       </form>
     </mat-step>
+
 
     <!-- Tercer paso: Confirmación de los detalles del examen -->
     <mat-step>
@@ -61,12 +65,12 @@
       </div>
 
       <div style="text-align: center; margin-top: 20px;">
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button type="button" (click)="createExam()">Submit Exam</button>
+        <button type="button" class="btn-backA" matStepperPrevious>Cancel</button>
+        <button type="button" class="btn-submit" (click)="createExam()">Submit Appointment</button>
       </div>
     </mat-step>
   </mat-stepper>
 
   <!-- Botón para volver a la lista de exámenes -->
-  <button mat-button (click)="goBack()">Back to Exams</button>
+  <button type="button" class="btn-backA" (click)="goBack()">Back to Appointments</button>
 </div>

@@ -41,6 +41,10 @@ export class AddExamComponent implements OnInit {
     });
   }
 
+  onDateSelected(event: Date): void {
+    this.secondFormGroup.controls['examDate'].setValue(event);
+  }
+
   ngOnInit(): void {
     this.loadPatients();
   }
@@ -54,14 +58,14 @@ export class AddExamComponent implements OnInit {
   createExam(): void {
     if (this.firstFormGroup.valid && this.secondFormGroup.valid) {
       const examDateValue = this.secondFormGroup.get('examDate')?.value;
-      const formattedExamDate = new Date(examDateValue).toISOString().split('T')[0]; // Formato 'yyyy-MM-dd'
+      const formattedExamDate = new Date(examDateValue).toISOString().split('T')[0];
 
       const examData = {
         doctorId: this.authenticationService.getId(),
         patientId: this.firstFormGroup.get('patientId')?.value,
         examType: this.firstFormGroup.get('examType')?.value,
         examDate: formattedExamDate,
-        examResultDate: formattedExamDate,  // Mismo valor y formato que examDate
+        examResultDate: formattedExamDate,
         examResult: false
       };
 

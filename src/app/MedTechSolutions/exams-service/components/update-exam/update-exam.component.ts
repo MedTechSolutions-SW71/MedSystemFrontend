@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {ExamsService} from '../../service/exams.service';
 import {Location} from '@angular/common';
 
@@ -13,7 +13,6 @@ export class UpdateExamComponent {
   examId: number = -1;
 
   constructor(private examsService: ExamsService,
-              private router: Router,
               private route: ActivatedRoute,
               private location: Location,) {}
 
@@ -59,5 +58,4 @@ export class UpdateExamComponent {
       return false;
     }
   }
-
 }
