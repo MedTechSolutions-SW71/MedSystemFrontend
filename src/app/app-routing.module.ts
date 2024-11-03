@@ -5,12 +5,20 @@ import {SignInComponent} from './MedTechSolutions/security-service/pages/sign-in
 import {SignUpComponent} from './MedTechSolutions/security-service/pages/sign-up/sign-up.component';
 import {authenticationGuard} from './MedTechSolutions/security-service/service/authentication.guard';
 import {HomeComponent} from './public/pages/home/home.component';
+import {
+  DoctorTreatmentsComponent
+} from './MedTechSolutions/treatment-service/pages/doctor-treatments/doctor-treatments.component';
+import {
+  PatientTreatmentsComponent
+} from './MedTechSolutions/treatment-service/pages/patient-treatments/patient-treatments.component';
 
 const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'home', component: HomeComponent, canActivate: [authenticationGuard] },
   { path: 'chat/:userId', component: ChatComponent, canActivate: [authenticationGuard] },
+  { path: 'treatment/patientId/:patientId', component: PatientTreatmentsComponent, canActivate: [authenticationGuard] },
+  { path: 'results/doctorId/:doctorId', component: DoctorTreatmentsComponent, canActivate: [authenticationGuard] },
   { path: '', redirectTo: 'sign-in', pathMatch: 'full' }
 
 ];

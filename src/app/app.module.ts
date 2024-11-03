@@ -13,6 +13,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import {MatIcon} from '@angular/material/icon';
 import {provideHttpClient} from '@angular/common/http';
 import {MatAnchor, MatIconButton} from "@angular/material/button";
+import {PatientTreatmentsComponent} from './MedTechSolutions/treatment-service/pages/patient-treatments/patient-treatments.component';
+import {DoctorTreatmentsComponent} from './MedTechSolutions/treatment-service/pages/doctor-treatments/doctor-treatments.component';
 import { HomeComponent } from './public/pages/home/home.component';
 
 @NgModule({
@@ -21,7 +23,9 @@ import { HomeComponent } from './public/pages/home/home.component';
     ChatComponent,
     SignInComponent,
     SignUpComponent,
-    HomeComponent
+    HomeComponent,
+    PatientTreatmentsComponent,
+    DoctorTreatmentsComponent
   ],
   imports: [
     BrowserModule,
