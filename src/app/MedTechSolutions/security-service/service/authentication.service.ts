@@ -16,12 +16,18 @@ export class AuthenticationService {
   httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
 
   private signedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  private signedInUserId: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-  private signedInUsername: BehaviorSubject<string> = new BehaviorSubject<string>('');
-  private signedInRole: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  private signedInUserId: BehaviorSubject<number> = new BehaviorSubject<number>(Number(localStorage.getItem('id')) || 0);
+  private signedInUsername: BehaviorSubject<string> = new BehaviorSubject<string>(localStorage.getItem('email') || '');
+  private signedInRole: BehaviorSubject<string> = new BehaviorSubject<string>(localStorage.getItem('role') || '');
 
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient) {
+    console.log('Estado de signedIn al cargar:', this.signedIn.value);
+    console.log('Token en localStorage:', localStorage.getItem('token'));
+    console.log('Id en localStorage:', localStorage.getItem('id'));
+    console.log('Email en localStorage:', localStorage.getItem('email'));
+    console.log('Role en localStorage:', localStorage.getItem('role'));
+  }
 
   get isSignedIn(): Observable<boolean> {
     return this.signedIn.asObservable();

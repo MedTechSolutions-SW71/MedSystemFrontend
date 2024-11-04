@@ -3,6 +3,7 @@ import {Treatment} from '../../models/treatment';
 import {TreatmentsService} from '../../services/treatments.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
+import {Appointment} from "../../../appointments-service/model/appointment";
 
 @Component({
   selector: 'app-doctor-treatments',
@@ -34,9 +35,7 @@ export class DoctorTreatmentsComponent implements OnInit {
 
   ngOnInit() {
     this.loadTreatments();
-    this.route.paramMap.subscribe(params => {
-      this.doctorId = Number(params.get('id')); // Captura el ID de la URL
-    });
+
   }
 
   loadTreatments() {
@@ -63,7 +62,7 @@ export class DoctorTreatmentsComponent implements OnInit {
         patientId: this.treatmentForm.get('patientId')?.value
       };
 
-      this.treatmentsService.addTreatment(treatment).subscribe(
+      this.treatmentsService.createTreatment(treatment).subscribe(
         (response) => {
           this.successMessage = 'Treatment added successfully!';
           this.loadTreatments();
@@ -95,6 +94,7 @@ export class DoctorTreatmentsComponent implements OnInit {
       );
     }
   }
+
 
   toggleAddForm() {
     this.showAddForm = !this.showAddForm;
