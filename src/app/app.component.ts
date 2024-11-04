@@ -50,8 +50,7 @@ export class AppComponent implements OnInit {
         this.options = [
           { path: '/home', title: 'Home', icon: 'home' },
           { path: `/doctor/${userIdForPath}/appointments`, title: 'Appointments', icon: 'calendar_today' },
-          { path: `/doctor/${userIdForPath}/treatments-doctor`, title: 'Treatments for patients', icon: 'assignment' },
-          { path: `/doctor/${userIdForPath}/request-history`, title: 'Request History', icon: 'history' },
+          { path: `/doctor/${userIdForPath}/treatments`, title: 'Treatments for patients', icon: 'assignment' },
           { path: `/doctor/${userIdForPath}/exams`, title: 'Exams', icon: 'swap_vertical_circle' },
         ];
     } else if (this.userRole === 'Patient') {
@@ -60,7 +59,7 @@ export class AppComponent implements OnInit {
       this.options = [
         {path: '/home', title: 'Home', icon: 'home'},
         {path: `/patient/${userIdForPath}/appointments`, title: 'Appointments', icon: 'calendar_today'},
-        {path: `/patient/${userIdForPath}/treatments-patient`, title: 'Treatments for patients', icon: 'assignment'},
+        {path: `/patient/${userIdForPath}/treatments`, title: 'Treatments for patients', icon: 'assignment'},
         {path: `/patient/${userIdForPath}/exams`, title: 'Exams', icon: 'swap_vertical_circle'},
       ];
     } else if (this.userRole === 'Laboratory') {

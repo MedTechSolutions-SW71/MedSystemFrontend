@@ -12,7 +12,6 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {MatIcon} from '@angular/material/icon';
 import {provideHttpClient} from '@angular/common/http';
-import {MatAnchor, MatIconButton} from "@angular/material/button";
 import {PatientTreatmentsComponent} from './MedTechSolutions/treatment-service/pages/patient-treatments/patient-treatments.component';
 import {DoctorTreatmentsComponent} from './MedTechSolutions/treatment-service/pages/doctor-treatments/doctor-treatments.component';
 import {MatAnchor, MatButton, MatIconButton} from "@angular/material/button";

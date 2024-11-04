@@ -1,11 +1,13 @@
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {catchError, Observable, retry, tap, throwError} from "rxjs";
 import {environment} from "../../../environments/environment";
+import {Treatment} from '../../MedTechSolutions/treatment-service/models/treatment';
 
 export class BaseService<T> {
   profilePath: string = `${environment.profilesPath}`;
   userPath: string = `${environment.userPath}`;
   appointmentPath: string = `${environment.appointmentsPath}`;
+  treatmentsPath: string = `${environment.treatmentsPath}`;
   examsPath: string = `${environment.examsPath}`;
   resourceEndpoint: string = '/resources';
 
@@ -42,6 +44,10 @@ export class BaseService<T> {
       .pipe(retry(2), catchError(this.handleError));
   }
 
+  createTreatment(item: any): Observable<T> {
+    return this.http.post<T>(this.treatmentResourcePath(), JSON.stringify(item) ,this.httpOptions);
+  }
+
   createExam(item: any): Observable<T> {
     return this.http.post<T>(this.examResourcePath(), JSON.stringify(item), this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
@@ -56,6 +62,16 @@ export class BaseService<T> {
 
   deleteAppointment(id: any) {
     return this.http.delete(`${this.appointmentResourcePath()}/${id}`, { responseType: 'text' }).pipe(
+      tap(response => console.log('Respuesta de eliminación:', response)),
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error en la solicitud de eliminación:', error);
+        return throwError(() => new Error('Something happened with request, please try again later'));
+      })
+    );
+  }
+
+  deleteTreatmentByName(treatmentName: string) {
+    return this.http.delete(`${this.treatmentResourcePath()}/treatmentName/${treatmentName}`, { responseType: 'text' }).pipe(
       tap(response => console.log('Respuesta de eliminación:', response)),
       catchError((error: HttpErrorResponse) => {
         console.error('Error en la solicitud de eliminación:', error);
@@ -119,6 +135,14 @@ export class BaseService<T> {
       .pipe(retry(2), catchError(this.handleError));
   }
 
+  getTreatments() {
+    return this.http.get<T[]>(this.treatmentResourcePath());
+  }
+
+  getTreatmentsByPatientId(patientId: string | null): Observable<T[]> {
+    return this.http.get<T[]>(`${this.treatmentResourcePath()}/patientId/${patientId}`);
+  }
+
   getExamByDoctorId(id: number, idType: string): Observable<T[]> {
     return this.http.get<T[]>(`${this.examResourcePath()}/${idType}/${id}`, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
@@ -144,6 +168,10 @@ export class BaseService<T> {
 
    private appointmentResourcePath(): string {
     return `${this.appointmentPath}${this.resourceEndpoint}`;
+  }
+
+  private treatmentResourcePath(): string {
+    return  `${this.treatmentsPath}${this.resourceEndpoint}`;
   }
 
   private examResourcePath(): string {

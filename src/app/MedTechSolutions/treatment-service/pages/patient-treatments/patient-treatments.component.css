@@ -1,6 +1,7 @@
 .main-container {
+  margin-top: 10px;
   min-height: 100vh;
-  background-color: #e6f3ff;
+  background-color: white; //e6f3ff
   padding: 20px;
 }
 

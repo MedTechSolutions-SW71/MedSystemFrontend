@@ -32,8 +32,8 @@ const routes: Routes = [
   { path: 'doctor/:id/exams', component: ExamsDoctorComponent, canActivate: [authenticationGuard] },
   { path: 'patient/:id/exams', component: ExamsPatientComponent, canActivate: [authenticationGuard] },
   { path: 'chat/:userId', component: ChatComponent, canActivate: [authenticationGuard] },
-  { path: 'patients/:id/treatments', component: PatientTreatmentsComponent },
-  { path: 'doctor/:id/treatments', component: DoctorTreatmentsComponent},
+  { path: 'patient/:id/treatments', component: PatientTreatmentsComponent, canActivate: [authenticationGuard] },
+  { path: 'doctor/:id/treatments', component: DoctorTreatmentsComponent, canActivate: [authenticationGuard] },
   { path: '', redirectTo: 'sign-in', pathMatch: 'full' }
 
 ];

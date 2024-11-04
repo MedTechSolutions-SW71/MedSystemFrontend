@@ -79,6 +79,7 @@ export class AddAppointmentComponent implements OnInit {
         reason: this.firstFormGroup.get('reason')?.value,
         speciality: this.firstFormGroup.get('speciality')?.value
       };
+      console.log('Datos de la cita:', appointment);
 
       // Llama al servicio de citas para crear la cita
       this.appointmentsService.createAppointment(appointment).subscribe(
