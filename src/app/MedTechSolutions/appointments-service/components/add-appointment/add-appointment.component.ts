@@ -86,7 +86,7 @@ export class AddAppointmentComponent implements OnInit {
         (response) => {
           console.log('Cita creada con éxito:', response);
           alert('Appointment created successfully!');
-          this.location.back(); // Regresa a la vista anterior o redirige a donde necesites
+          this.location.back();
         },
         (error) => {
           console.error('Error al crear la cita:', error);

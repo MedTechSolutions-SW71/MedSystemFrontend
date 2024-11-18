@@ -52,6 +52,10 @@ h2 {
 
 .treatment-form {
   margin-top: 20px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .form-group {
@@ -126,3 +130,43 @@ h2 {
 .remove-treatment-item:last-child {
   border-bottom: none;
 }
+
+.ng-select {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+}
+
+.ng-select .ng-select-container {
+  background-color: #f8f9fa;
+  border: none;
+}
+
+::ng-deep .ng-select .ng-option {
+  background-color: #ffffff;
+  color: #2c3e50;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.2s ease;
+}
+
+.ng-select .ng-option:hover {
+  background-color: #e9ecef;
+}
+
+.ng-select .ng-option.ng-option-selected {
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+.ng-select .ng-placeholder {
+  color: #6c757d;
+  visibility: hidden;
+}
+
+
+
+

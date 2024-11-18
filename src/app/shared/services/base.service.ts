@@ -143,6 +143,10 @@ export class BaseService<T> {
     return this.http.get<T[]>(`${this.treatmentResourcePath()}/patientId/${patientId}`);
   }
 
+  getTreatmentsByDoctorId(doctorId: string | null): Observable<T[]> {
+    return this.http.get<T[]>(`${this.treatmentResourcePath()}/doctorId/${doctorId}`);
+  }
+
   getExamByDoctorId(id: number, idType: string): Observable<T[]> {
     return this.http.get<T[]>(`${this.examResourcePath()}/${idType}/${id}`, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));

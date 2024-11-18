@@ -4,6 +4,8 @@ import {TreatmentsService} from '../../services/treatments.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {Appointment} from "../../../appointments-service/model/appointment";
+import {AuthenticationService} from '../../../security-service/service/authentication.service';
+import {PatientService} from '../../../profiles-service/services/patient.service';
 
 @Component({
   selector: 'app-doctor-treatments',
@@ -12,17 +14,19 @@ import {Appointment} from "../../../appointments-service/model/appointment";
 })
 
 export class DoctorTreatmentsComponent implements OnInit {
-  doctorId: number = 1;
+  doctorId: string | null = "";
   currentTreatments: Treatment[] = [];
   treatmentForm: FormGroup;
   showAddForm = false;
   errorMessage: string = '';
   successMessage: string = '';
+  patients: any[] = [];
 
   constructor(
     private treatmentsService: TreatmentsService,
     private fb: FormBuilder,
-    private route: ActivatedRoute
+    private authenticationService: AuthenticationService,
+    private patientService: PatientService
   ) {
     this.treatmentForm = this.fb.group({
       treatmentName: ['', Validators.required],
@@ -35,13 +39,41 @@ export class DoctorTreatmentsComponent implements OnInit {
 
   ngOnInit() {
     this.loadTreatments();
-
+    this.loadPatients();
   }
 
   loadTreatments() {
-    this.treatmentsService.getTreatments().subscribe(
+    this.doctorId = this.authenticationService.getId() ? this.authenticationService.getId() : "";
+
+    const treatmentsRequest = this.treatmentsService.getTreatmentsByDoctorId(this.doctorId);
+    treatmentsRequest.subscribe(
       (treatments) => {
-        this.currentTreatments = treatments;
+        this.currentTreatments = [];
+
+        treatments.forEach((treatment: any) => {
+          this.patientService.getProfileById(treatment.patientId).subscribe(
+            (patient) => {
+
+              if (!treatment.length) {
+                console.error('No se encontraron tratamientos');
+              }
+
+              const enrichedTreatment = {
+                ...treatment,
+                patientName: `${patient.firstName} ${patient.lastName}`
+              };
+              this.currentTreatments.push(enrichedTreatment);
+            },
+            (error) => {
+              console.error(`Error al obtener paciente con ID ${treatment.patientId}:`, error);
+              const enrichedTreatment = {
+                ...treatment,
+                patientName: 'Unknown'
+              };
+              this.currentTreatments.push(enrichedTreatment);
+            }
+          );
+        });
         this.errorMessage = '';
       },
       (error) => {
@@ -51,15 +83,31 @@ export class DoctorTreatmentsComponent implements OnInit {
     );
   }
 
+  loadPatients() {
+    this.patientService.getProfiles().subscribe(
+      (patients) => {
+        this.patients = patients.map((patient) => ({
+          ...patient,
+          fullName: `${patient.firstName} ${patient.lastName}` // Agregar nombre completo
+        }));
+      },
+      (error) => {
+        console.error('Error loading patients:', error);
+      }
+    );
+  }
+
+
   onSubmit() {
     if (this.treatmentForm.valid) {
       const treatment: Treatment = {
-        id: 0, // El backend asignará el ID real
+        id: 0,
         treatmentName: this.treatmentForm.get('treatmentName')?.value,
         description: this.treatmentForm.get('description')?.value,
         startDate: this.treatmentForm.get('startDate')?.value,
         endDate: this.treatmentForm.get('endDate')?.value,
-        patientId: this.treatmentForm.get('patientId')?.value
+        patientId: this.treatmentForm.get('patientId')?.value,
+        doctorId: Number(this.authenticationService.getId()),
       };
 
       this.treatmentsService.createTreatment(treatment).subscribe(
@@ -94,7 +142,6 @@ export class DoctorTreatmentsComponent implements OnInit {
       );
     }
   }
-
 
   toggleAddForm() {
     this.showAddForm = !this.showAddForm;

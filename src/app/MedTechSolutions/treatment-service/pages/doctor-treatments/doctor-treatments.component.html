@@ -16,7 +16,7 @@
           <h3>{{ treatment.treatmentName }}</h3>
           <p><strong>Description:</strong> {{ treatment.description }}</p>
           <p><strong>Period:</strong> {{ treatment.period }}</p>
-          <p><strong>Patient ID:</strong> {{ treatment.patientId }}</p>
+          <p><strong>Patient Name:</strong> {{ treatment.patientName }}</p>
         </div>
         <div *ngIf="currentTreatments.length === 0" class="no-data">
           No treatments found.
@@ -34,7 +34,7 @@
       <form *ngIf="showAddForm" [formGroup]="treatmentForm" (ngSubmit)="onSubmit()" class="treatment-form">
         <div class="form-group">
           <label for="treatmentName">Treatment Name:</label>
-          <input id="treatmentName" type="text" formControlName="treatmentName">
+          <input id="treatmentName" type="text" formControlName="treatmentName" />
           <div *ngIf="treatmentForm.get('treatmentName')?.touched && treatmentForm.get('treatmentName')?.invalid" class="error-text">
             Treatment name is required
           </div>
@@ -50,25 +50,33 @@
 
         <div class="form-group">
           <label for="startDate">Start Date:</label>
-          <input id="startDate" type="text" formControlName="startDate">
+          <input id="startDate" type="date" formControlName="startDate" />
           <div *ngIf="treatmentForm.get('startDate')?.touched && treatmentForm.get('startDate')?.invalid" class="error-text">
-            Period is required
+            Start date is required
           </div>
         </div>
 
         <div class="form-group">
           <label for="endDate">End Date:</label>
-          <input id="endDate" type="text" formControlName="endDate">
+          <input id="endDate" type="date" formControlName="endDate" />
           <div *ngIf="treatmentForm.get('endDate')?.touched && treatmentForm.get('endDate')?.invalid" class="error-text">
-            Period is required
+            End date is required
           </div>
         </div>
 
         <div class="form-group">
-          <label for="patientId">Patient ID:</label>
-          <input id="patientId" type="number" formControlName="patientId">
+          <label for="patientId">Select Patient:</label>
+          <ng-select
+            [items]="patients"
+            bindLabel="fullName"
+            bindValue="id"
+            formControlName="patientId"
+            [searchable]="true"
+            [placeholder]="treatmentForm.get('patientId')?.value ? '' : 'Search or select a patient'"
+          >
+          </ng-select>
           <div *ngIf="treatmentForm.get('patientId')?.touched && treatmentForm.get('patientId')?.invalid" class="error-text">
-            Valid patient ID is required
+            Valid patient is required
           </div>
         </div>
 
@@ -76,6 +84,8 @@
           Add Treatment
         </button>
       </form>
+
+
     </div>
 
     <!-- Remove Treatment Section -->

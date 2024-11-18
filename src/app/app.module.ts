@@ -43,7 +43,7 @@ import {UpdateExamComponent} from './MedTechSolutions/exams-service/components/u
 import {ExamsLaboratoryComponent} from './MedTechSolutions/exams-service/pages/laboratory/exams-laboratory.component';
 import { ExamsPatientComponent } from './MedTechSolutions/exams-service/pages/patient/exams-patient.component';
 import { UpdateAppointmentComponent } from './MedTechSolutions/appointments-service/components/update-appointment/update-appointment.component';
-
+import {NgSelectModule} from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -101,7 +101,8 @@ import { UpdateAppointmentComponent } from './MedTechSolutions/appointments-serv
     MatNativeDateModule,
     MatInputModule,
     MatNativeDateModule,
-    MatInputModule
+    MatInputModule,
+    NgSelectModule
   ],
   providers: [
     provideHttpClient(),
