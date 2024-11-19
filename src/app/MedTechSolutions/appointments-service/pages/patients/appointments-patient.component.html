@@ -1,48 +1,75 @@
 <div class="appointment-card mat-elevation-z8">
-  <h2 class="card-title">Appointments</h2>
+  <h2 class="card-title">Your Appointments</h2>
 
-  <!-- Data Table -->
+  <!-- Tabla de datos -->
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 custom-table" matSort>
-    <!-- Columna de Doctor -->
+    <!-- Doctor -->
     <ng-container matColumnDef="doctor">
       <th mat-header-cell *matHeaderCellDef> Doctor </th>
-      <td mat-cell *matCellDef="let element"> {{element.doctorName}} </td>
+      <td mat-cell *matCellDef="let element">
+        <div class="data-content">
+          <mat-icon class="icon">person</mat-icon>
+          {{ element.doctorName }}
+        </div>
+      </td>
     </ng-container>
 
-    <!-- Columna de Paciente -->
+    <!-- Paciente -->
     <ng-container matColumnDef="patient">
       <th mat-header-cell *matHeaderCellDef> Patient </th>
-      <td mat-cell *matCellDef="let element"> {{element.patientName}} </td>
+      <td mat-cell *matCellDef="let element">
+        <div class="data-content">
+          <mat-icon class="icon">face</mat-icon>
+          {{ element.patientName }}
+        </div>
+      </td>
     </ng-container>
 
-    <!-- Columna de Fecha -->
+    <!-- Fecha -->
     <ng-container matColumnDef="date">
       <th mat-header-cell *matHeaderCellDef> Date </th>
-      <td mat-cell *matCellDef="let element"> {{element.date | date: 'shortDate'}} </td>
+      <td mat-cell *matCellDef="let element">
+        <div class="data-content">
+          <mat-icon class="icon">event</mat-icon>
+          {{ element.date | date: 'shortDate' }}
+        </div>
+      </td>
     </ng-container>
 
-    <!-- Columna de Motivo -->
+    <!-- Motivo -->
     <ng-container matColumnDef="reason">
       <th mat-header-cell *matHeaderCellDef> Reason </th>
-      <td mat-cell *matCellDef="let element"> {{element.reason}} </td>
+      <td mat-cell *matCellDef="let element">
+        <div class="data-content">
+          <mat-icon class="icon">description</mat-icon>
+          {{ element.reason }}
+        </div>
+      </td>
     </ng-container>
 
-    <!-- Columna de Especialidad -->
+    <!-- Especialidad -->
     <ng-container matColumnDef="speciality">
       <th mat-header-cell *matHeaderCellDef> Speciality </th>
-      <td mat-cell *matCellDef="let element"> {{element.speciality}} </td>
+      <td mat-cell *matCellDef="let element">
+        <div class="data-content">
+          <mat-icon class="icon">medical_services</mat-icon>
+          {{ element.speciality }}
+        </div>
+      </td>
     </ng-container>
 
-    <!-- Columna de Acciones -->
+    <!-- Acciones -->
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Actions </th>
       <td mat-cell *matCellDef="let element">
-        <a (click)="onEditItem(element)" href="javascript:void(0)">
-          <mat-icon>edit</mat-icon>
-        </a>
-        <a (click)="onDeleteItem(element)" href="javascript:void(0)">
-          <mat-icon class="delete-icon">delete</mat-icon>
-        </a>
+        <div class="action-buttons">
+          <button mat-icon-button color="primary" (click)="onEditItem(element)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="onDeleteItem(element)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
       </td>
     </ng-container>
 
@@ -54,8 +81,8 @@
   <!-- Paginador -->
   <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 
-  <!-- Botón para agregar una cita -->
+  <!-- Botón para agregar cita -->
   <div class="add-button-container">
-    <button class="custom-add-button" (click)="onAddAppointment()">Add New Exam</button>
+    <button class="custom-add-button" (click)="onAddAppointment()">Add New Appointment</button>
   </div>
 </div>
