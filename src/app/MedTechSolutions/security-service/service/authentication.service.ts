@@ -1,12 +1,12 @@
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from '@angular/core';
-import {environment} from '../../../../environments/environment';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {BehaviorSubject, Observable} from "rxjs";
-import {Router} from "@angular/router";
-import {SignUpRequest} from "../model/sign-up.request";
-import {SignUpResponse} from "../model/sign-up.response";
-import {SignInRequest} from "../model/sign-in.request";
-import {SignInResponse} from "../model/sign-in.response";
+import { Router } from "@angular/router";
+import { BehaviorSubject, Observable } from "rxjs";
+import { environment } from '../../../../environments/environment';
+import { SignInRequest } from "../model/sign-in.request";
+import { SignInResponse } from "../model/sign-in.response";
+import { SignUpRequest } from "../model/sign-up.request";
+import { SignUpResponse } from "../model/sign-up.response";
 
 @Injectable({
   providedIn: 'root'
@@ -78,11 +78,11 @@ export class AuthenticationService {
     localStorage.setItem('email', email);
     localStorage.setItem('token', token);
     localStorage.setItem('role', role);
-
-    this.signedIn.next(true);
-
+  
+    this.signedIn.next(true); // Asegúrate de que este se ejecuta correctamente
     this.router.navigate(['/home']);
   }
+  
 
   getRole() {
     return localStorage.getItem('role');
@@ -91,4 +91,9 @@ export class AuthenticationService {
   getId() {
     return localStorage.getItem('id');
   }
+
+  getUsername(): string | null {
+    return localStorage.getItem('email');
+  }
+  
 }
