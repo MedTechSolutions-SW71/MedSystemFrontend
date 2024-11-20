@@ -1,10 +1,10 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Location } from '@angular/common';
-import {Doctor} from '../../../profiles-service/model/doctor';
-import {DoctorService} from '../../../profiles-service/services/doctor.service';
-import {AuthenticationService} from '../../../security-service/service/authentication.service';
-import {AppointmentsService} from '../../services/appointments.service';
+import { Doctor } from '../../../profiles-service/model/doctor';
+import { DoctorService } from '../../../profiles-service/services/doctor.service';
+import { AuthenticationService } from '../../../security-service/service/authentication.service';
+import { AppointmentsService } from '../../services/appointments.service';
 
 @Component({
   selector: 'app-add-appointment',
@@ -18,6 +18,7 @@ export class AddAppointmentComponent implements OnInit {
   thirdFormGroup: FormGroup;
   filteredDoctors: Doctor[] = [];
   availableTimes: string[] = ['08:00 AM', '09:00 AM', '10:00 AM', '11:00 AM', '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM'];
+  availableSpecialties: string[] = ['CARDIOLOGY', 'DERMATOLOGY', 'PEDIATRICS']; // Especialidades disponibles
   selectedDate!: Date;
   selectedDoctorFirstName: string = '';
   selectedDoctorLastName: string = '';
@@ -62,26 +63,17 @@ export class AddAppointmentComponent implements OnInit {
     }
   }
 
-
-  dateClass = (d: Date): string => {
-    if (!this.selectedDate) return '';
-    const date = d.toISOString().split('T')[0];
-    return date === this.selectedDate.toISOString().split('T')[0] ? 'selected-date' : '';
-  }
-
-
   createAppointment(): void {
     if (this.firstFormGroup.valid && this.secondFormGroup.valid && this.thirdFormGroup.valid) {
       const appointment = {
         doctorId: this.secondFormGroup.get('doctor')?.value,
         patientId: this.authenticationService.getId(),
-        date: this.thirdFormGroup.get('date')?.value, // + 'T' + this.thirdFormGroup.get('time')?.value + ':00', // Combina la fecha y la hora
+        date: this.thirdFormGroup.get('date')?.value,
         reason: this.firstFormGroup.get('reason')?.value,
         speciality: this.firstFormGroup.get('speciality')?.value
       };
       console.log('Datos de la cita:', appointment);
 
-      // Llama al servicio de citas para crear la cita
       this.appointmentsService.createAppointment(appointment).subscribe(
         (response) => {
           console.log('Cita creada con éxito:', response);
@@ -98,13 +90,11 @@ export class AddAppointmentComponent implements OnInit {
     }
   }
 
-
   private loadDoctorsBySpeciality(speciality: string): void {
     this.doctorService.getBySpecialty(speciality).subscribe((doctors: Doctor[]) => {
       this.filteredDoctors = doctors;
     });
   }
-
 
   updateDoctorName(doctorId: string): void {
     const doctor = this.filteredDoctors.find(d => d.id === +doctorId);
@@ -113,8 +103,6 @@ export class AddAppointmentComponent implements OnInit {
       this.selectedDoctorLastName = doctor.lastName;
     }
   }
-
-
 
   goBack(): void {
     this.location.back();

@@ -1,0 +1,44 @@
+<mat-sidenav-container class="sidenav-container">
+  <!-- Sidenav -->
+  <mat-sidenav
+    #sidenav
+    mode="side"
+    class="custom-sidenav"
+    *ngIf="isSignedIn$ | async"
+    [opened]="true"
+  >
+    <!-- User Info -->
+    <div class="user-info">
+      <img
+        src="https://static.vecteezy.com/system/resources/previews/030/504/836/large_2x/avatar-account-flat-isolated-on-transparent-background-for-graphic-and-web-design-default-social-media-profile-photo-symbol-profile-and-people-silhouette-user-icon-vector.jpg"
+        alt="User avatar"
+        class="profile-img"
+      />
+      <h3 class="user-name">{{ username }}</h3>
+    </div>
+
+    <!-- Navigation Options -->
+    <div class="nav-options">
+      <a
+        mat-button
+        *ngFor="let option of options"
+        class="nav-link"
+        [routerLink]="option.path"
+        routerLinkActive="active-link"
+      >
+        <mat-icon *ngIf="option.icon">{{ option.icon }}</mat-icon>
+        {{ option.title }}
+      </a>
+    </div>
+
+    <!-- Logout Button -->
+    <div class="logout">
+      <button mat-button class="logout-btn" (click)="logout()">Logout</button>
+    </div>
+  </mat-sidenav>
+
+  <!-- Main Content -->
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

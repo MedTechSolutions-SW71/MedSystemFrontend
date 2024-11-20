@@ -1,17 +1,15 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {Doctor} from '../../../profiles-service/model/doctor';
-import {Patient} from '../../../profiles-service/model/patient';
-import {MatTableDataSource} from '@angular/material/table';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {AppointmentsService} from '../../../appointments-service/services/appointments.service';
-import {DoctorService} from '../../../profiles-service/services/doctor.service';
-import {PatientService} from '../../../profiles-service/services/patient.service';
-import {AuthenticationService} from '../../../security-service/service/authentication.service';
-import {Appointment} from '../../../appointments-service/model/appointment';
-import {ExamsService} from '../../service/exams.service';
-import {Exam} from '../../model/exam';
-import {Router} from '@angular/router';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { Doctor } from '../../../profiles-service/model/doctor';
+import { Patient } from '../../../profiles-service/model/patient';
+import { DoctorService } from '../../../profiles-service/services/doctor.service';
+import { PatientService } from '../../../profiles-service/services/patient.service';
+import { AuthenticationService } from '../../../security-service/service/authentication.service';
+import { Exam } from '../../model/exam';
+import { ExamsService } from '../../service/exams.service';
 
 @Component({
   selector: 'app-exams-doctor',

@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {PatientService} from '../../../profiles-service/services/patient.service';
-import {ExamsService} from '../../service/exams.service';
-import {Patient} from '../../../profiles-service/model/patient';
 import { Location } from '@angular/common';
-import {AuthenticationService} from '../../../security-service/service/authentication.service';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Patient } from '../../../profiles-service/model/patient';
+import { PatientService } from '../../../profiles-service/services/patient.service';
+import { AuthenticationService } from '../../../security-service/service/authentication.service';
+import { ExamsService } from '../../service/exams.service';
 
 @Component({
   selector: 'app-add-exam',
@@ -42,7 +42,13 @@ export class AddExamComponent implements OnInit {
   }
 
   onDateSelected(event: Date): void {
-    this.secondFormGroup.controls['examDate'].setValue(event);
+    // Formatear la fecha seleccionada para que sea legible y utilizable
+    const formattedDate = new Date(event).toLocaleDateString('en-GB', {
+      year: 'numeric',
+      month: 'short',
+      day: '2-digit',
+    });
+    this.secondFormGroup.controls['examDate'].setValue(formattedDate); // Muestra legible en el frontend
   }
 
   ngOnInit(): void {
@@ -58,17 +64,19 @@ export class AddExamComponent implements OnInit {
   createExam(): void {
     if (this.firstFormGroup.valid && this.secondFormGroup.valid) {
       const examDateValue = this.secondFormGroup.get('examDate')?.value;
+  
+      // Convertir la fecha al formato ISO compatible con el backend
       const formattedExamDate = new Date(examDateValue).toISOString().split('T')[0];
-
+  
       const examData = {
         doctorId: this.authenticationService.getId(),
         patientId: this.firstFormGroup.get('patientId')?.value,
         examType: this.firstFormGroup.get('examType')?.value,
-        examDate: formattedExamDate,
+        examDate: formattedExamDate, // Fecha formateada para el backend
         examResultDate: formattedExamDate,
-        examResult: false
+        examResult: false,
       };
-
+  
       this.examsService.createExam(examData).subscribe(
         (response) => {
           console.log('Examen creado con éxito:', response);

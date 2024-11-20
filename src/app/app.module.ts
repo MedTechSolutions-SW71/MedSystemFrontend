@@ -44,6 +44,7 @@ import {ExamsLaboratoryComponent} from './MedTechSolutions/exams-service/pages/l
 import { ExamsPatientComponent } from './MedTechSolutions/exams-service/pages/patient/exams-patient.component';
 import { UpdateAppointmentComponent } from './MedTechSolutions/appointments-service/components/update-appointment/update-appointment.component';
 import {NgSelectModule} from '@ng-select/ng-select';
+import { SideNavComponent } from './public/components/side-nav/side-nav.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import {NgSelectModule} from '@ng-select/ng-select';
     ExamsLaboratoryComponent,
     UpdateExamComponent,
     ExamsPatientComponent,
-    UpdateAppointmentComponent
+    UpdateAppointmentComponent,
+    SideNavComponent
   ],
   imports: [
     BrowserModule,

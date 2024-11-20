@@ -1,57 +1,69 @@
 .update-container {
   max-width: 400px;
-  margin: 20px auto;
+  margin: 40px auto;
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #f9f9f9;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-label {
+.update-container h2 {
+  text-align: center;
+  color: #4CAF50;
+  margin-bottom: 20px;
+  font-family: Arial, sans-serif;
+  font-size: 24px;
+}
+
+.update-container label {
   display: block;
   margin-bottom: 10px;
   font-weight: bold;
-}
-
-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 25px;
   font-size: 16px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  color: #333333;
 }
 
-.btn-submit {
-  background-color: #4CAF50;
-  color: white;
-  margin-right: 10px;
+.update-container .custom-calendar {
+  margin: 20px 0;
 }
 
-.btn-submit:hover {
-  background-color: #45a049;
-  box-shadow: 0 4px 15px rgba(0, 128, 0, 0.3);
-}
-
-.btn-back {
-  background-color: #f44336;
-  color: white;
-}
-
-.btn-back:hover {
-  background-color: #d32f2f;
-  box-shadow: 0 4px 15px rgba(211, 47, 47, 0.3);
-}
-
-.btn-submit:disabled {
-  background-color: #aaa;
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
-.button-container {
-  text-align: center;
+.update-container .button-container {
+  display: flex;
+  justify-content: space-between;
   margin-top: 20px;
 }
 
+.update-container button {
+  min-width: 120px;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
 
+.update-container button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.update-container button.btn-submit {
+  background-color: #4CAF50;
+  color: #ffffff;
+}
+
+.update-container button.btn-submit:hover:not(:disabled) {
+  background-color: #45a049;
+  box-shadow: 0px 4px 15px rgba(0, 128, 0, 0.3);
+}
+
+.update-container button.btn-back {
+  background-color: #f44336;
+  color: #ffffff;
+}
+
+.update-container button.btn-back:hover {
+  background-color: #d32f2f;
+  box-shadow: 0px 4px 15px rgba(211, 47, 47, 0.3);
+}
